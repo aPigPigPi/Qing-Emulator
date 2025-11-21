@@ -185,8 +185,8 @@ void Game::initGenerals() {
 }
 
 void Game::initDiplomacy() {
-    for (const auto& power : foreignPowers) {
-        diplomacy[power] = -50;  // Start with negative relations
+    for (size_t i = 0; i < foreignPowers.size(); i++) {
+        diplomacy[foreignPowers[i]] = -50;  // Start with negative relations
     }
 }
 
@@ -229,13 +229,14 @@ void Game::displayStatus() const {
     std::cout << "║ 谍报等级: " << std::setw(24) << std::left << spyNetwork << "║\n";
     std::cout << "╠════════════════════════════════════╣\n";
     std::cout << "║ 外交关系:                          ║\n";
-    for (const auto& pair : diplomacy) {
+    for (std::map<std::string, int>::const_iterator it = diplomacy.begin(); 
+         it != diplomacy.end(); ++it) {
         std::string status;
-        if (pair.second >= 50) status = "友好";
-        else if (pair.second >= 0) status = "中立";
-        else if (pair.second >= -50) status = "冷淡";
+        if (it->second >= 50) status = "友好";
+        else if (it->second >= 0) status = "中立";
+        else if (it->second >= -50) status = "冷淡";
         else status = "敌对";
-        std::cout << "║   " << std::setw(8) << pair.first 
+        std::cout << "║   " << std::setw(8) << it->first 
                   << std::setw(24) << std::left << status << "║\n";
     }
     std::cout << "╚════════════════════════════════════╝\n\n";
@@ -243,13 +244,13 @@ void Game::displayStatus() const {
 
 void Game::collectIncome() {
     int income = 0;
-    for (const auto& province : provinces) {
-        if (province->getController() == "清国") {
-            int provinceIncome = province->getIncome();
+    for (size_t i = 0; i < provinces.size(); i++) {
+        if (provinces[i]->getController() == "清国") {
+            int provinceIncome = provinces[i]->getIncome();
             // Apply technology bonuses
-            for (const auto& tech : technologies) {
-                if (tech.researched) {
-                    provinceIncome += tech.economicBonus / 10;
+            for (size_t j = 0; j < technologies.size(); j++) {
+                if (technologies[j].researched) {
+                    provinceIncome += technologies[j].economicBonus / 10;
                 }
             }
             income += provinceIncome;
