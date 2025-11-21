@@ -8,14 +8,14 @@
 int main() {
 #ifdef _WIN32
     // 设置Windows控制台编码以正确显示中文
-    // UTF-8编码 (65001) - 适用于Windows 10及以上，Windows Terminal
-    SetConsoleOutputCP(65001);
-    SetConsoleCP(65001);
+    // GBK/ANSI编码 (936) - 适用于ANSI编码的源文件（Dev-C++默认）
+    SetConsoleOutputCP(936);
+    SetConsoleCP(936);
     
-    // 如果UTF-8显示乱码，可以改用GBK编码 (936)
-    // 取消下面两行的注释，并注释掉上面的UTF-8设置
-    // SetConsoleOutputCP(936);
-    // SetConsoleCP(936);
+    // 如果源文件是UTF-8编码，可以改用UTF-8 (65001)
+    // 取消下面两行的注释，并注释掉上面的GBK设置
+    // SetConsoleOutputCP(65001);
+    // SetConsoleCP(65001);
 #endif
     
     Game game;
