@@ -9,8 +9,8 @@ Libs=
 PrivateResource=
 ResourceIncludes=
 MakeIncludes=
-Compiler=-std=c++11_@@_
-CppCompiler=-std=c++11_@@_
+Compiler=-std=c++11
+CppCompiler=-std=c++11
 Linker=
 IsCpp=1
 Icon=

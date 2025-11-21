@@ -134,10 +134,13 @@ void Game::collectIncome() {
 }
 
 void Game::randomEvent() {
+    const int EVENT_CHANCE = 15;  // 15% chance for an event per turn
+    const int EVENT_TYPES = 5;    // Total number of different event types
+    
     int chance = std::rand() % 100;
     
-    if (chance < 15) {  // 15% chance for an event
-        int eventType = std::rand() % 5;
+    if (chance < EVENT_CHANCE) {
+        int eventType = std::rand() % EVENT_TYPES;
         GameEvent event("", "", 0, 0, 0);
         
         switch (eventType) {
