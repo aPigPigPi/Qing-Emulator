@@ -1,19 +1,27 @@
 #include "Game.h"
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
 
 Game::Game() : turn(0), gameOver(false), victory(false), 
-               treasury(1000), reformLevel(0), militaryTech(0), spyNetwork(0) {
+               treasury(1000), reformLevel(0), militaryTech(0), spyNetwork(0),
+               gameEnded(false), currentSaveFile("") {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
     
-    foreignPowers.push_back("英国");  // Britain
-    foreignPowers.push_back("法国");  // France
-    foreignPowers.push_back("俄国");  // Russia
-    foreignPowers.push_back("日本");  // Japan
-    foreignPowers.push_back("德国");  // Germany
+    // 扩展列强 - 所有八国联军成员国及其他势力
+    foreignPowers.push_back("英国");      // Britain
+    foreignPowers.push_back("法国");      // France
+    foreignPowers.push_back("俄国");      // Russia
+    foreignPowers.push_back("日本");      // Japan
+    foreignPowers.push_back("德国");      // Germany
+    foreignPowers.push_back("美国");      // USA
+    foreignPowers.push_back("意大利");    // Italy
+    foreignPowers.push_back("奥匈帝国");  // Austria-Hungary
+    foreignPowers.push_back("荷兰");      // Netherlands
+    foreignPowers.push_back("葡萄牙");    // Portugal
     
     initProvinces();
     initTechnologies();
@@ -22,25 +30,31 @@ Game::Game() : turn(0), gameOver(false), victory(false),
 }
 
 void Game::initProvinces() {
-    // Initialize 18 provinces with varying income levels
-    provinces.push_back(std::unique_ptr<Province>(new Province("直隶", "清国", 150)));   // Zhili - Capital region
+    // Initialize 22 provinces - 清朝本部18省 + 东三省 + 新疆
+    provinces.push_back(std::unique_ptr<Province>(new Province("直隶", "清国", 150)));     // Zhili - Capital
     provinces.push_back(std::unique_ptr<Province>(new Province("山东", "清国", 120)));
     provinces.push_back(std::unique_ptr<Province>(new Province("山西", "清国", 80)));
     provinces.push_back(std::unique_ptr<Province>(new Province("河南", "清国", 100)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("江苏", "清国", 200)));   // Rich region
+    provinces.push_back(std::unique_ptr<Province>(new Province("江苏", "清国", 200)));     // Rich
     provinces.push_back(std::unique_ptr<Province>(new Province("安徽", "清国", 90)));
     provinces.push_back(std::unique_ptr<Province>(new Province("江西", "清国", 85)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("浙江", "清国", 180)));   // Rich coastal
+    provinces.push_back(std::unique_ptr<Province>(new Province("浙江", "清国", 180)));     // Rich coastal
     provinces.push_back(std::unique_ptr<Province>(new Province("福建", "清国", 110)));
     provinces.push_back(std::unique_ptr<Province>(new Province("湖北", "清国", 100)));
     provinces.push_back(std::unique_ptr<Province>(new Province("湖南", "清国", 95)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("广东", "清国", 220)));   // Very rich
+    provinces.push_back(std::unique_ptr<Province>(new Province("广东", "清国", 220)));     // Very rich
     provinces.push_back(std::unique_ptr<Province>(new Province("广西", "清国", 70)));
     provinces.push_back(std::unique_ptr<Province>(new Province("四川", "清国", 130)));
     provinces.push_back(std::unique_ptr<Province>(new Province("陕西", "清国", 75)));
     provinces.push_back(std::unique_ptr<Province>(new Province("甘肃", "清国", 60)));
     provinces.push_back(std::unique_ptr<Province>(new Province("云南", "清国", 80)));
     provinces.push_back(std::unique_ptr<Province>(new Province("贵州", "清国", 65)));
+    // 东三省
+    provinces.push_back(std::unique_ptr<Province>(new Province("奉天", "清国", 110)));     // Fengtian
+    provinces.push_back(std::unique_ptr<Province>(new Province("吉林", "清国", 70)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("黑龙江", "清国", 60)));
+    // 边疆
+    provinces.push_back(std::unique_ptr<Province>(new Province("新疆", "清国", 50)));
 }
 
 void Game::initTechnologies() {
@@ -70,7 +84,8 @@ void Game::displayProvinces() const {
     std::cout << "\n========================================\n";
     std::cout << "          第 " << turn << " 回合 - 省份状况\n";
     std::cout << "========================================\n";
-    std::cout << std::left << std::setw(10) << "省份" 
+    std::cout << std::left << std::setw(5) << "编号" 
+              << std::setw(10) << "省份" 
               << std::setw(10) << "控制者" 
               << std::setw(8) << "驻军"
               << std::setw(8) << "收入"
@@ -78,13 +93,14 @@ void Game::displayProvinces() const {
               << std::setw(8) << "稳定" << "\n";
     std::cout << "----------------------------------------\n";
     
-    for (const auto& province : provinces) {
-        std::cout << std::left << std::setw(10) << province->getName()
-                  << std::setw(10) << province->getController()
-                  << std::setw(8) << province->getTroops()
-                  << std::setw(8) << province->getIncome()
-                  << std::setw(8) << province->getFortificationLevel()
-                  << std::setw(8) << province->getStability() << "\n";
+    for (size_t i = 0; i < provinces.size(); i++) {
+        std::cout << std::left << std::setw(5) << i
+                  << std::setw(10) << provinces[i]->getName()
+                  << std::setw(10) << provinces[i]->getController()
+                  << std::setw(8) << provinces[i]->getTroops()
+                  << std::setw(8) << provinces[i]->getIncome()
+                  << std::setw(8) << provinces[i]->getFortificationLevel()
+                  << std::setw(8) << provinces[i]->getStability() << "\n";
     }
     
     std::cout << "========================================\n";
@@ -196,13 +212,21 @@ void Game::stationTroops(int provinceIndex, int troops) {
     if (provinceIndex >= 0 && provinceIndex < static_cast<int>(provinces.size())) {
         if (provinces[provinceIndex]->getController() == "清国") {
             int cost = troops * 2;  // Each troop costs 2 silver
+            std::cout << "\n--- 派遣驻军 ---\n";
+            std::cout << "目标省份: " << provinces[provinceIndex]->getName() << "\n";
+            std::cout << "派遣兵力: " << troops << " 人\n";
+            std::cout << "需要花费: " << cost << " 银两\n";
+            std::cout << "当前国库: " << treasury << " 银两\n";
+            
             if (treasury >= cost) {
                 provinces[provinceIndex]->addTroops(troops);
                 treasury -= cost;
-                std::cout << "已在 " << provinces[provinceIndex]->getName() 
-                          << " 增派 " << troops << " 名士兵 (花费: " << cost << ")\n";
+                std::cout << "\n✓ 成功派遣！\n";
+                std::cout << "剩余国库: " << treasury << " 银两\n";
+                std::cout << provinces[provinceIndex]->getName() 
+                          << " 现有驻军: " << provinces[provinceIndex]->getTroops() << " 人\n";
             } else {
-                std::cout << "国库不足！需要 " << cost << " 银两\n";
+                std::cout << "\n✗ 国库不足！还需要 " << (cost - treasury) << " 银两\n";
             }
         } else {
             std::cout << "该省份不在清国控制之下！\n";
@@ -214,13 +238,19 @@ void Game::stationTroops(int provinceIndex, int troops) {
 
 void Game::recruitTroops(int amount) {
     int cost = amount * 2;
+    std::cout << "\n--- 招募士兵 ---\n";
+    std::cout << "招募数量: " << amount << " 人\n";
+    std::cout << "需要花费: " << cost << " 银两 (每人2银两)\n";
+    std::cout << "当前国库: " << treasury << " 银两\n";
+    
     if (treasury >= cost) {
         treasury -= cost;
-        // Add troops to capital (index 0)
         provinces[0]->addTroops(amount);
-        std::cout << "在直隶招募了 " << amount << " 名士兵 (花费: " << cost << ")\n";
+        std::cout << "\n✓ 在直隶成功招募 " << amount << " 名士兵！\n";
+        std::cout << "剩余国库: " << treasury << " 银两\n";
+        std::cout << "直隶驻军: " << provinces[0]->getTroops() << " 人\n";
     } else {
-        std::cout << "国库不足！需要 " << cost << " 银两\n";
+        std::cout << "\n✗ 国库不足！还需要 " << (cost - treasury) << " 银两\n";
     }
 }
 
@@ -452,12 +482,297 @@ void Game::enactReforms() {
             
             std::cout << "改革成功推进！改革进度: " << reformLevel << "/100\n";
             std::cout << "全国稳定度提升，军事科技提升！\n";
+            std::cout << "【花费：400银两】\n";
         } else if (reformLevel >= 100) {
             std::cout << "改革已完成！\n";
         } else {
-            std::cout << "国库不足！\n";
+            std::cout << "国库不足！需要 400 银两，当前: " << treasury << " 银两\n";
         }
     }
+}
+
+void Game::attackProvince() {
+    std::cout << "\n=== 进攻敌方省份 ===\n";
+    
+    // List enemy provinces
+    std::vector<int> enemyProvinces;
+    for (size_t i = 0; i < provinces.size(); i++) {
+        if (provinces[i]->getController() != "清国") {
+            enemyProvinces.push_back(i);
+            std::cout << i << ". " << provinces[i]->getName() 
+                      << " (控制: " << provinces[i]->getController()
+                      << ", 驻军: " << provinces[i]->getTroops() << ")\n";
+        }
+    }
+    
+    if (enemyProvinces.empty()) {
+        std::cout << "没有敌方省份可以进攻！\n";
+        return;
+    }
+    
+    std::cout << "\n选择要进攻的省份编号 (-1取消): ";
+    int targetIndex;
+    std::cin >> targetIndex;
+    
+    if (targetIndex == -1) return;
+    
+    if (targetIndex < 0 || targetIndex >= static_cast<int>(provinces.size()) ||
+        provinces[targetIndex]->getController() == "清国") {
+        std::cout << "无效的目标！\n";
+        return;
+    }
+    
+    std::cout << "请输入派遣进攻的兵力: ";
+    int attackForce;
+    std::cin >> attackForce;
+    
+    if (attackForce <= 0) {
+        std::cout << "兵力必须大于0！\n";
+        return;
+    }
+    
+    // Check if we have enough troops (from all our provinces)
+    int totalTroops = 0;
+    for (const auto& prov : provinces) {
+        if (prov->getController() == "清国") {
+            totalTroops += prov->getTroops();
+        }
+    }
+    
+    if (attackForce > totalTroops) {
+        std::cout << "兵力不足！当前总兵力: " << totalTroops << "\n";
+        return;
+    }
+    
+    // Calculate combat
+    int attackPower = attackForce + militaryTech;
+    
+    // Add general bonus if available
+    for (const auto& general : generals) {
+        if (general.isRecruited()) {
+            attackPower += general.getCombatPower() / 2;  // Half bonus for attack
+            break;  // Only one general per attack
+        }
+    }
+    
+    int defense = provinces[targetIndex]->getTroops() + 
+                  provinces[targetIndex]->getFortificationLevel() * 20;
+    
+    std::cout << "\n--- 战斗 ---\n";
+    std::cout << "我方攻击力: " << attackPower << " (兵力: " << attackForce 
+              << " + 科技: " << militaryTech << ")\n";
+    std::cout << "敌方防御力: " << defense << " (驻军: " << provinces[targetIndex]->getTroops()
+              << " + 工事: " << provinces[targetIndex]->getFortificationLevel() * 20 << ")\n\n";
+    
+    if (attackPower > defense) {
+        std::cout << "*** 胜利！成功攻占 " << provinces[targetIndex]->getName() << "！***\n";
+        provinces[targetIndex]->setController("清国");
+        int casualties = defense / 2;
+        provinces[targetIndex]->setTroops(attackForce - casualties);
+        std::cout << "我军伤亡: " << casualties << " 人\n";
+        std::cout << "占领后驻军: " << provinces[targetIndex]->getTroops() << " 人\n";
+        
+        // Worsen relations with the defeated power
+        std::string enemy = provinces[targetIndex]->getController();
+        if (diplomacy.find(enemy) != diplomacy.end()) {
+            diplomacy[enemy] -= 20;
+        }
+    } else {
+        std::cout << "*** 战败！进攻失败 ***\n";
+        int casualties = attackForce / 2;
+        std::cout << "我军伤亡: " << casualties << " 人\n";
+        provinces[targetIndex]->setTroops(defense - attackPower / 2);
+    }
+}
+
+void Game::saveGame(const std::string& filename) const {
+    std::ofstream file(filename.c_str());
+    if (!file.is_open()) {
+        std::cout << "无法创建存档文件！\n";
+        return;
+    }
+    
+    // Save game state
+    file << turn << "\n";
+    file << treasury << "\n";
+    file << reformLevel << "\n";
+    file << militaryTech << "\n";
+    file << spyNetwork << "\n";
+    file << gameEnded << "\n";  // Save game ended status
+    
+    // Save provinces
+    file << provinces.size() << "\n";
+    for (size_t i = 0; i < provinces.size(); i++) {
+        file << provinces[i]->getName() << "\n";
+        file << provinces[i]->getController() << "\n";
+        file << provinces[i]->getTroops() << "\n";
+        file << provinces[i]->getIncome() << "\n";
+        file << provinces[i]->getFortificationLevel() << "\n";
+        file << provinces[i]->getStability() << "\n";
+    }
+    
+    // Save technologies
+    file << technologies.size() << "\n";
+    for (size_t i = 0; i < technologies.size(); i++) {
+        file << technologies[i].researched << "\n";
+    }
+    
+    // Save generals
+    file << generals.size() << "\n";
+    for (size_t i = 0; i < generals.size(); i++) {
+        file << generals[i].isRecruited() << "\n";
+    }
+    
+    // Save diplomacy
+    file << diplomacy.size() << "\n";
+    for (std::map<std::string, int>::const_iterator it = diplomacy.begin(); 
+         it != diplomacy.end(); ++it) {
+        file << it->first << "\n";
+        file << it->second << "\n";
+    }
+    
+    file.close();
+    std::cout << "游戏已保存到: " << filename << "\n";
+}
+
+bool Game::loadGame(const std::string& filename) {
+    std::ifstream file(filename.c_str());
+    if (!file.is_open()) {
+        return false;
+    }
+    
+    // Load game state
+    file >> turn;
+    file >> treasury;
+    file >> reformLevel;
+    file >> militaryTech;
+    file >> spyNetwork;
+    file >> gameEnded;  // Load game ended status
+    
+    // Load provinces
+    size_t provinceCount;
+    file >> provinceCount;
+    file.ignore();  // Ignore newline
+    
+    for (size_t i = 0; i < provinceCount && i < provinces.size(); i++) {
+        std::string name, controller;
+        int troops, income, fortLevel, stability;
+        
+        std::getline(file, name);
+        std::getline(file, controller);
+        file >> troops >> income >> fortLevel >> stability;
+        file.ignore();
+        
+        provinces[i]->setController(controller);
+        provinces[i]->setTroops(troops);
+        provinces[i]->setIncome(income);
+        for (int j = 0; j < fortLevel; j++) {
+            provinces[i]->upgradeFortification();
+        }
+        provinces[i]->setStability(stability);
+    }
+    
+    // Load technologies
+    size_t techCount;
+    file >> techCount;
+    for (size_t i = 0; i < techCount && i < technologies.size(); i++) {
+        bool researched;
+        file >> researched;
+        technologies[i].researched = researched;
+    }
+    
+    // Load generals
+    size_t genCount;
+    file >> genCount;
+    for (size_t i = 0; i < genCount && i < generals.size(); i++) {
+        bool recruited;
+        file >> recruited;
+        if (recruited) {
+            generals[i].recruit();
+        }
+    }
+    
+    // Load diplomacy
+    size_t dipCount;
+    file >> dipCount;
+    file.ignore();
+    diplomacy.clear();
+    for (size_t i = 0; i < dipCount; i++) {
+        std::string power;
+        int relation;
+        std::getline(file, power);
+        file >> relation;
+        file.ignore();
+        diplomacy[power] = relation;
+    }
+    
+    file.close();
+    
+    // If game has ended, show report and exit
+    if (gameEnded) {
+        std::cout << "\n这是一个已结束的存档！\n";
+        displayFinalReport();
+        return true;
+    }
+    
+    return true;
+}
+
+void Game::displayFinalReport() const {
+    std::cout << "\n";
+    std::cout << "╔════════════════════════════════════════════╗\n";
+    std::cout << "║                                            ║\n";
+    std::cout << "║         游戏结束 - 最终成果报告           ║\n";
+    std::cout << "║                                            ║\n";
+    std::cout << "╠════════════════════════════════════════════╣\n";
+    std::cout << "║                                            ║\n";
+    
+    int qingProvinces = getQingProvinceCount();
+    int totalProvinces = provinces.size();
+    double controlPercent = (qingProvinces * 100.0) / totalProvinces;
+    
+    std::cout << "║ 游戏回合: " << std::setw(28) << std::left << turn << "║\n";
+    std::cout << "║ 控制省份: " << qingProvinces << "/" << totalProvinces 
+              << " (" << std::fixed << std::setprecision(1) << controlPercent << "%)";
+    for (int i = 0; i < 20; i++) std::cout << " ";
+    std::cout << "║\n";
+    std::cout << "║ 国库余额: " << std::setw(28) << std::left << treasury << "║\n";
+    std::cout << "║ 改革进度: " << std::setw(28) << std::left << reformLevel << "║\n";
+    std::cout << "║ 军事科技: " << std::setw(28) << std::left << militaryTech << "║\n";
+    std::cout << "║                                            ║\n";
+    std::cout << "╠════════════════════════════════════════════╣\n";
+    std::cout << "║ 省份控制详情:                             ║\n";
+    std::cout << "╠════════════════════════════════════════════╣\n";
+    
+    // Count provinces by controller
+    std::map<std::string, int> controlCount;
+    for (const auto& prov : provinces) {
+        controlCount[prov->getController()]++;
+    }
+    
+    for (const auto& pair : controlCount) {
+        std::cout << "║ " << std::setw(12) << std::left << pair.first 
+                  << ": " << std::setw(27) << std::left << pair.second + "个省份" << "║\n";
+    }
+    
+    std::cout << "║                                            ║\n";
+    std::cout << "╠════════════════════════════════════════════╣\n";
+    
+    // Evaluation
+    if (controlPercent >= 90) {
+        std::cout << "║ 评价: 大清中兴，功在千秋！                ║\n";
+    } else if (controlPercent >= 70) {
+        std::cout << "║ 评价: 成功守土，保住基业                  ║\n";
+    } else if (controlPercent >= 50) {
+        std::cout << "║ 评价: 勉强维持，前路坎坷                  ║\n";
+    } else if (controlPercent >= 30) {
+        std::cout << "║ 评价: 江河日下，国势危急                  ║\n";
+    } else {
+        std::cout << "║ 评价: 大厦将倾，回天乏术                  ║\n";
+    }
+    
+    std::cout << "║                                            ║\n";
+    std::cout << "╚════════════════════════════════════════════╝\n\n";
 }
 
 void Game::foreignPowersAction() {
@@ -546,21 +861,13 @@ int Game::getQingProvinceCount() const {
 }
 
 void Game::checkGameOver() {
+    // 移除自动胜负判定，改为提示
     int qingProvinces = getQingProvinceCount();
     
     if (qingProvinces < 8) {
-        gameOver = true;
-        victory = false;
-        std::cout << "\n**************************************\n";
-        std::cout << "  游戏结束！清国失去了太多领土...\n";
-        std::cout << "  清国仅剩 " << qingProvinces << " 个省份\n";
-        std::cout << "**************************************\n";
+        std::cout << "\n!!! 警告：清国仅剩 " << qingProvinces << " 个省份，形势危急！\n";
     } else if (qingProvinces == static_cast<int>(provinces.size())) {
-        gameOver = true;
-        victory = true;
-        std::cout << "\n**************************************\n";
-        std::cout << "  胜利！清国收复了所有失地！\n";
-        std::cout << "**************************************\n";
+        std::cout << "\n*** 恭喜：清国已收复所有失地！***\n";
     }
 }
 
@@ -568,9 +875,31 @@ void Game::run() {
     std::cout << "========================================\n";
     std::cout << "     欢迎来到大清模拟器！\n";
     std::cout << "========================================\n";
-    std::cout << "目标: 保卫清国领土，击退列强！\n";
-    std::cout << "胜利条件: 收复所有省份\n";
-    std::cout << "失败条件: 省份少于8个\n";
+    
+    // 让玩家选择存档文件名
+    std::cout << "\n请输入存档文件名 (不含扩展名，如: save1): ";
+    std::cin >> currentSaveFile;
+    currentSaveFile += ".dat";
+    
+    std::cout << "\n检查存档: " << currentSaveFile << "\n";
+    
+    // 尝试加载存档
+    if (loadGame(currentSaveFile)) {
+        if (gameEnded) {
+            // 已结束的存档，显示报告后退出
+            std::cout << "\n按任意键继续...\n";
+            std::cin.ignore();
+            std::cin.get();
+            return;
+        }
+        std::cout << "✓ 找到存档！存档已加载，继续游戏...\n";
+    } else {
+        std::cout << "未找到存档文件，将创建新存档。\n";
+        std::cout << "游戏时可随时保存到: " << currentSaveFile << "\n";
+    }
+    
+    std::cout << "\n目标: 尽可能扩大清国领土！\n";
+    std::cout << "提示: 您可以随时保存游戏或选择退出并查看最终成果\n";
     std::cout << "========================================\n\n";
     
     while (!gameOver) {
@@ -597,7 +926,9 @@ void Game::run() {
             std::cout << "║ 6. 谍报活动                        ║\n";
             std::cout << "║ 7. 建造防御工事                    ║\n";
             std::cout << "║ 8. 推进改革                        ║\n";
-            std::cout << "║ 9. 结束回合                        ║\n";
+            std::cout << "║ 9. 进攻敌方省份  [新]              ║\n";
+            std::cout << "║ 10. 保存游戏                       ║\n";
+            std::cout << "║ 11. 结束回合                       ║\n";
             std::cout << "║ 0. 退出游戏                        ║\n";
             std::cout << "╚════════════════════════════════════╝\n";
             std::cout << "选择: ";
@@ -613,8 +944,16 @@ void Game::run() {
             }
             
             if (choice == 0) {
-                std::cout << "退出游戏...\n";
-                gameOver = true;
+                std::cout << "确认退出? (1=是, 0=否): ";
+                int confirm;
+                std::cin >> confirm;
+                if (confirm == 1) {
+                    std::cout << "正在保存游戏并退出...\n";
+                    gameEnded = true;  // Mark game as ended
+                    saveGame(currentSaveFile);
+                    displayFinalReport();
+                    gameOver = true;
+                }
                 break;
             } else if (choice == 1) {
                 std::cout << "\n请输入省份编号 (0-" << provinces.size() - 1 << "): ";
@@ -661,6 +1000,10 @@ void Game::run() {
             } else if (choice == 8) {
                 enactReforms();
             } else if (choice == 9) {
+                attackProvince();
+            } else if (choice == 10) {
+                saveGame(currentSaveFile);
+            } else if (choice == 11) {
                 // End turn
                 std::cout << "回合结束...\n";
                 endTurn = true;

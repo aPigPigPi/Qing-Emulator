@@ -25,6 +25,8 @@ private:
     int reformLevel;       // Overall reform progress (0-100)
     int militaryTech;      // Military technology level
     int spyNetwork;        // Intelligence network level (0-5)
+    bool gameEnded;        // Whether game has ended (for save file)
+    std::string currentSaveFile;  // Current save file name
 
     void initProvinces();
     void initTechnologies();
@@ -47,6 +49,12 @@ private:
     void conductEspionage();
     void buildFortification(int provinceIndex);
     void enactReforms();
+    void attackProvince();  // New: Attack enemy provinces
+    
+    // Save/Load system
+    void saveGame(const std::string& filename) const;
+    bool loadGame(const std::string& filename);
+    void displayFinalReport() const;  // Show final statistics
     
 public:
     Game();
