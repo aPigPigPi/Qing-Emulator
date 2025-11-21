@@ -30,31 +30,94 @@ Game::Game() : turn(0), gameOver(false), victory(false),
 }
 
 void Game::initProvinces() {
-    // Initialize 22 provinces - 清朝本部18省 + 东三省 + 新疆
-    provinces.push_back(std::unique_ptr<Province>(new Province("直隶", "清国", 150)));     // Zhili - Capital
-    provinces.push_back(std::unique_ptr<Province>(new Province("山东", "清国", 120)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("山西", "清国", 80)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("河南", "清国", 100)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("江苏", "清国", 200)));     // Rich
-    provinces.push_back(std::unique_ptr<Province>(new Province("安徽", "清国", 90)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("江西", "清国", 85)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("浙江", "清国", 180)));     // Rich coastal
-    provinces.push_back(std::unique_ptr<Province>(new Province("福建", "清国", 110)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("湖北", "清国", 100)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("湖南", "清国", 95)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("广东", "清国", 220)));     // Very rich
-    provinces.push_back(std::unique_ptr<Province>(new Province("广西", "清国", 70)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("四川", "清国", 130)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("陕西", "清国", 75)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("甘肃", "清国", 60)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("云南", "清国", 80)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("贵州", "清国", 65)));
-    // 东三省
-    provinces.push_back(std::unique_ptr<Province>(new Province("奉天", "清国", 110)));     // Fengtian
-    provinces.push_back(std::unique_ptr<Province>(new Province("吉林", "清国", 70)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("黑龙江", "清国", 60)));
-    // 边疆
-    provinces.push_back(std::unique_ptr<Province>(new Province("新疆", "清国", 50)));
+    // 中国地区（34个省级行政区）
+    // 华北地区
+    provinces.push_back(std::unique_ptr<Province>(new Province("北京", "清国", 180)));      // Capital
+    provinces.push_back(std::unique_ptr<Province>(new Province("天津", "清国", 160)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("河北", "清国", 140)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("山西", "清国", 90)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("内蒙古", "清国", 70)));
+    
+    // 东北地区
+    provinces.push_back(std::unique_ptr<Province>(new Province("辽宁", "清国", 120)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("吉林", "清国", 80)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("黑龙江", "清国", 70)));
+    
+    // 华东地区
+    provinces.push_back(std::unique_ptr<Province>(new Province("上海", "清国", 250)));      // Very rich
+    provinces.push_back(std::unique_ptr<Province>(new Province("江苏", "清国", 200)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("浙江", "清国", 190)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("安徽", "清国", 100)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("福建", "清国", 130)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("江西", "清国", 95)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("山东", "清国", 150)));
+    
+    // 中南地区
+    provinces.push_back(std::unique_ptr<Province>(new Province("河南", "清国", 110)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("湖北", "清国", 120)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("湖南", "清国", 110)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("广东", "清国", 230)));      // Very rich
+    provinces.push_back(std::unique_ptr<Province>(new Province("广西", "清国", 85)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("海南", "清国", 60)));
+    
+    // 西南地区
+    provinces.push_back(std::unique_ptr<Province>(new Province("重庆", "清国", 100)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("四川", "清国", 140)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("贵州", "清国", 70)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("云南", "清国", 90)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("西藏", "清国", 40)));
+    
+    // 西北地区
+    provinces.push_back(std::unique_ptr<Province>(new Province("陕西", "清国", 100)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("甘肃", "清国", 65)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("青海", "清国", 45)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("宁夏", "清国", 50)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("新疆", "清国", 60)));
+    
+    // 港澳台
+    provinces.push_back(std::unique_ptr<Province>(new Province("香港", "英国", 200)));      // British
+    provinces.push_back(std::unique_ptr<Province>(new Province("澳门", "葡萄牙", 80)));     // Portuguese
+    provinces.push_back(std::unique_ptr<Province>(new Province("台湾", "日本", 150)));      // Japanese
+    
+    // 日本地区
+    provinces.push_back(std::unique_ptr<Province>(new Province("东京", "日本", 220)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("大阪", "日本", 180)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("北海道", "日本", 100)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("九州", "日本", 120)));
+    
+    // 俄国远东地区
+    provinces.push_back(std::unique_ptr<Province>(new Province("海参崴", "俄国", 140)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("西伯利亚", "俄国", 90)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("蒙古", "俄国", 70)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("中亚", "俄国", 80)));
+    
+    // 英国殖民地
+    provinces.push_back(std::unique_ptr<Province>(new Province("缅甸", "英国", 110)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("马来亚", "英国", 130)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("新加坡", "英国", 160)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("印度", "英国", 200)));
+    
+    // 法国殖民地
+    provinces.push_back(std::unique_ptr<Province>(new Province("越南", "法国", 120)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("柬埔寨", "法国", 90)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("老挝", "法国", 70)));
+    
+    // 德国殖民地
+    provinces.push_back(std::unique_ptr<Province>(new Province("青岛", "德国", 140)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("太平洋岛", "德国", 60)));
+    
+    // 美国势力范围
+    provinces.push_back(std::unique_ptr<Province>(new Province("菲律宾", "美国", 130)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("关岛", "美国", 80)));
+    
+    // 荷兰殖民地
+    provinces.push_back(std::unique_ptr<Province>(new Province("印尼", "荷兰", 150)));
+    
+    // 意大利租界
+    provinces.push_back(std::unique_ptr<Province>(new Province("天津租界", "意大利", 90)));
+    
+    // 奥匈帝国势力
+    provinces.push_back(std::unique_ptr<Province>(new Province("东欧据点", "奥匈帝国", 100)));
 }
 
 void Game::initTechnologies() {
