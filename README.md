@@ -80,7 +80,18 @@
 
 ## 编译与运行
 
-### 编译
+### 使用 Dev-C++（Windows 推荐）
+
+1. 下载并安装 [Dev-C++](https://sourceforge.net/projects/orwelldevcpp/)
+2. 用 Dev-C++ 打开 `QingEmulator.dev` 项目文件
+3. 确保编译选项设置为 C++11（工具 → 编译选项 → 语言标准 → ISO C++11）
+4. 按 `F11` 编译并运行
+
+详细说明请查看 [DEVCPP.md](DEVCPP.md)
+
+### 使用 CMake（Linux/Mac/Windows）
+
+#### 编译
 ```bash
 mkdir build
 cd build
@@ -88,10 +99,23 @@ cmake ..
 make
 ```
 
-### 运行
+#### 运行
 ```bash
-./QingEmulator
+./QingEmulator   # Linux/Mac
 ```
+
+或在 Windows 上：
+```cmd
+QingEmulator.exe
+```
+
+### Windows 其他方式
+
+**使用批处理文件**：
+- 双击 `build_windows.bat` 编译
+- 双击 `run_windows.bat` 运行
+
+详细说明请查看 [WINDOWS.md](WINDOWS.md)
 
 ## 游戏界面说明
 
@@ -117,9 +141,10 @@ make
 
 ## 开发信息
 - 语言：C++
-- 构建系统：CMake
+- C++标准：C++11（兼容 Dev-C++ 和现代编译器）
+- 构建系统：CMake（可选）或 Dev-C++
 - 最低CMake版本：3.10
-- C++标准：C++14
+- 支持平台：Windows、Linux、macOS
 
 ## 历史背景
 游戏背景设定在晚清时期（19世纪末至20世纪初），此时大清帝国面临内忧外患，列强虎视眈眈。玩家需要在这个动荡的时代力挽狂澜，保卫国家主权和领土完整。

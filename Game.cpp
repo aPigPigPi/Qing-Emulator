@@ -8,38 +8,39 @@
 Game::Game() : turn(0), gameOver(false), victory(false), 
                treasury(1000), reformLevel(0), militaryTech(0), spyNetwork(0) {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
-    initProvinces();
-    initTechnologies();
-    initGenerals();
-    initDiplomacy();
     
     foreignPowers.push_back("英国");  // Britain
     foreignPowers.push_back("法国");  // France
     foreignPowers.push_back("俄国");  // Russia
     foreignPowers.push_back("日本");  // Japan
     foreignPowers.push_back("德国");  // Germany
+    
+    initProvinces();
+    initTechnologies();
+    initGenerals();
+    initDiplomacy();
 }
 
 void Game::initProvinces() {
     // Initialize 18 provinces with varying income levels
-    provinces.push_back(std::make_unique<Province>("直隶", "清国", 150));   // Zhili - Capital region
-    provinces.push_back(std::make_unique<Province>("山东", "清国", 120));
-    provinces.push_back(std::make_unique<Province>("山西", "清国", 80));
-    provinces.push_back(std::make_unique<Province>("河南", "清国", 100));
-    provinces.push_back(std::make_unique<Province>("江苏", "清国", 200));   // Rich region
-    provinces.push_back(std::make_unique<Province>("安徽", "清国", 90));
-    provinces.push_back(std::make_unique<Province>("江西", "清国", 85));
-    provinces.push_back(std::make_unique<Province>("浙江", "清国", 180));   // Rich coastal
-    provinces.push_back(std::make_unique<Province>("福建", "清国", 110));
-    provinces.push_back(std::make_unique<Province>("湖北", "清国", 100));
-    provinces.push_back(std::make_unique<Province>("湖南", "清国", 95));
-    provinces.push_back(std::make_unique<Province>("广东", "清国", 220));   // Very rich
-    provinces.push_back(std::make_unique<Province>("广西", "清国", 70));
-    provinces.push_back(std::make_unique<Province>("四川", "清国", 130));
-    provinces.push_back(std::make_unique<Province>("陕西", "清国", 75));
-    provinces.push_back(std::make_unique<Province>("甘肃", "清国", 60));
-    provinces.push_back(std::make_unique<Province>("云南", "清国", 80));
-    provinces.push_back(std::make_unique<Province>("贵州", "清国", 65));
+    provinces.push_back(std::unique_ptr<Province>(new Province("直隶", "清国", 150)));   // Zhili - Capital region
+    provinces.push_back(std::unique_ptr<Province>(new Province("山东", "清国", 120)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("山西", "清国", 80)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("河南", "清国", 100)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("江苏", "清国", 200)));   // Rich region
+    provinces.push_back(std::unique_ptr<Province>(new Province("安徽", "清国", 90)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("江西", "清国", 85)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("浙江", "清国", 180)));   // Rich coastal
+    provinces.push_back(std::unique_ptr<Province>(new Province("福建", "清国", 110)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("湖北", "清国", 100)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("湖南", "清国", 95)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("广东", "清国", 220)));   // Very rich
+    provinces.push_back(std::unique_ptr<Province>(new Province("广西", "清国", 70)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("四川", "清国", 130)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("陕西", "清国", 75)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("甘肃", "清国", 60)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("云南", "清国", 80)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("贵州", "清国", 65)));
 }
 
 void Game::initTechnologies() {
