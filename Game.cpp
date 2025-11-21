@@ -30,94 +30,141 @@ Game::Game() : turn(0), gameOver(false), victory(false),
 }
 
 void Game::initProvinces() {
-    // 中国地区（34个省级行政区）
-    // 华北地区
-    provinces.push_back(std::unique_ptr<Province>(new Province("北京", "清国", 180)));      // Capital
-    provinces.push_back(std::unique_ptr<Province>(new Province("天津", "清国", 160)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("河北", "清国", 140)));
+    // ========== 大清帝国本土 ==========
+    // 直隶地区（相当于今河北、北京、天津）
+    provinces.push_back(std::unique_ptr<Province>(new Province("直隶", "清国", 180)));      // Capital region
     provinces.push_back(std::unique_ptr<Province>(new Province("山西", "清国", 90)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("内蒙古", "清国", 70)));
     
-    // 东北地区
-    provinces.push_back(std::unique_ptr<Province>(new Province("辽宁", "清国", 120)));
+    // 东三省（满洲）
+    provinces.push_back(std::unique_ptr<Province>(new Province("奉天", "清国", 120)));
     provinces.push_back(std::unique_ptr<Province>(new Province("吉林", "清国", 80)));
     provinces.push_back(std::unique_ptr<Province>(new Province("黑龙江", "清国", 70)));
     
-    // 华东地区
-    provinces.push_back(std::unique_ptr<Province>(new Province("上海", "清国", 250)));      // Very rich
-    provinces.push_back(std::unique_ptr<Province>(new Province("江苏", "清国", 200)));
+    // 江南地区
+    provinces.push_back(std::unique_ptr<Province>(new Province("江苏", "清国", 220)));      // Very rich
     provinces.push_back(std::unique_ptr<Province>(new Province("浙江", "清国", 190)));
     provinces.push_back(std::unique_ptr<Province>(new Province("安徽", "清国", 100)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("福建", "清国", 130)));
     provinces.push_back(std::unique_ptr<Province>(new Province("江西", "清国", 95)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("山东", "清国", 150)));
     
-    // 中南地区
-    provinces.push_back(std::unique_ptr<Province>(new Province("河南", "清国", 110)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("湖北", "清国", 120)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("湖南", "清国", 110)));
+    // 东南沿海
+    provinces.push_back(std::unique_ptr<Province>(new Province("福建", "清国", 130)));
     provinces.push_back(std::unique_ptr<Province>(new Province("广东", "清国", 230)));      // Very rich
     provinces.push_back(std::unique_ptr<Province>(new Province("广西", "清国", 85)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("海南", "清国", 60)));
     
-    // 西南地区
-    provinces.push_back(std::unique_ptr<Province>(new Province("重庆", "清国", 100)));
+    // 中原
+    provinces.push_back(std::unique_ptr<Province>(new Province("山东", "清国", 150)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("河南", "清国", 110)));
+    
+    // 两湖
+    provinces.push_back(std::unique_ptr<Province>(new Province("湖北", "清国", 120)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("湖南", "清国", 110)));
+    
+    // 西南
     provinces.push_back(std::unique_ptr<Province>(new Province("四川", "清国", 140)));
     provinces.push_back(std::unique_ptr<Province>(new Province("贵州", "清国", 70)));
     provinces.push_back(std::unique_ptr<Province>(new Province("云南", "清国", 90)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("西藏", "清国", 40)));
     
-    // 西北地区
+    // 西北
     provinces.push_back(std::unique_ptr<Province>(new Province("陕西", "清国", 100)));
     provinces.push_back(std::unique_ptr<Province>(new Province("甘肃", "清国", 65)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("青海", "清国", 45)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("宁夏", "清国", 50)));
+    
+    // 边疆藩部
+    provinces.push_back(std::unique_ptr<Province>(new Province("蒙古", "清国", 80)));       // 蒙古属于清国
     provinces.push_back(std::unique_ptr<Province>(new Province("新疆", "清国", 60)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("青海", "清国", 45)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("西藏", "清国", 40)));
     
-    // 港澳台
-    provinces.push_back(std::unique_ptr<Province>(new Province("香港", "英国", 200)));      // British
-    provinces.push_back(std::unique_ptr<Province>(new Province("澳门", "葡萄牙", 80)));     // Portuguese
-    provinces.push_back(std::unique_ptr<Province>(new Province("台湾", "日本", 150)));      // Japanese
+    // ========== 被占领的中国领土 ==========
+    provinces.push_back(std::unique_ptr<Province>(new Province("香港", "英国", 200)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("澳门", "葡萄牙", 80)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("台湾", "日本", 150)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("旅顺", "俄国", 140)));      // 俄占
+    provinces.push_back(std::unique_ptr<Province>(new Province("胶州湾", "德国", 130)));    // 德占青岛
     
-    // 日本地区
-    provinces.push_back(std::unique_ptr<Province>(new Province("东京", "日本", 220)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("大阪", "日本", 180)));
+    // ========== 日本 ==========
+    provinces.push_back(std::unique_ptr<Province>(new Province("江户", "日本", 220)));      // 东京
+    provinces.push_back(std::unique_ptr<Province>(new Province("京都", "日本", 180)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("大阪", "日本", 190)));
     provinces.push_back(std::unique_ptr<Province>(new Province("北海道", "日本", 100)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("九州", "日本", 120)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("九州", "日本", 130)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("四国", "日本", 90)));
     
-    // 俄国远东地区
+    // ========== 俄罗斯帝国 ==========
     provinces.push_back(std::unique_ptr<Province>(new Province("海参崴", "俄国", 140)));
     provinces.push_back(std::unique_ptr<Province>(new Province("西伯利亚", "俄国", 90)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("蒙古", "俄国", 70)));
     provinces.push_back(std::unique_ptr<Province>(new Province("中亚", "俄国", 80)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("莫斯科", "俄国", 250)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("圣彼得堡", "俄国", 230)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("乌克兰", "俄国", 180)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("高加索", "俄国", 120)));
     
-    // 英国殖民地
+    // ========== 大英帝国 ==========
+    // 英国本土
+    provinces.push_back(std::unique_ptr<Province>(new Province("伦敦", "英国", 300)));      // Very rich
+    provinces.push_back(std::unique_ptr<Province>(new Province("曼彻斯特", "英国", 220)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("苏格兰", "英国", 150)));
+    // 殖民地
+    provinces.push_back(std::unique_ptr<Province>(new Province("印度", "英国", 250)));
     provinces.push_back(std::unique_ptr<Province>(new Province("缅甸", "英国", 110)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("马来亚", "英国", 130)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("新加坡", "英国", 160)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("印度", "英国", 200)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("马来亚", "英国", 140)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("新加坡", "英国", 170)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("澳大利亚", "英国", 160)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("新西兰", "英国", 110)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("加拿大", "英国", 180)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("南非", "英国", 140)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("埃及", "英国", 150)));
     
-    // 法国殖民地
-    provinces.push_back(std::unique_ptr<Province>(new Province("越南", "法国", 120)));
+    // ========== 法兰西帝国 ==========
+    provinces.push_back(std::unique_ptr<Province>(new Province("巴黎", "法国", 280)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("马赛", "法国", 180)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("里昂", "法国", 160)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("越南", "法国", 130)));
     provinces.push_back(std::unique_ptr<Province>(new Province("柬埔寨", "法国", 90)));
     provinces.push_back(std::unique_ptr<Province>(new Province("老挝", "法国", 70)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("阿尔及利亚", "法国", 120)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("摩洛哥", "法国", 100)));
     
-    // 德国殖民地
-    provinces.push_back(std::unique_ptr<Province>(new Province("青岛", "德国", 140)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("太平洋岛", "德国", 60)));
+    // ========== 德意志帝国 ==========
+    provinces.push_back(std::unique_ptr<Province>(new Province("柏林", "德国", 260)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("汉堡", "德国", 200)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("慕尼黑", "德国", 180)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("科隆", "德国", 160)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("坦噶尼喀", "德国", 80)));   // 东非
+    provinces.push_back(std::unique_ptr<Province>(new Province("喀麦隆", "德国", 70)));
     
-    // 美国势力范围
-    provinces.push_back(std::unique_ptr<Province>(new Province("菲律宾", "美国", 130)));
+    // ========== 美利坚合众国 ==========
+    provinces.push_back(std::unique_ptr<Province>(new Province("华盛顿", "美国", 240)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("纽约", "美国", 280)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("芝加哥", "美国", 220)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("旧金山", "美国", 200)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("菲律宾", "美国", 140)));
     provinces.push_back(std::unique_ptr<Province>(new Province("关岛", "美国", 80)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("夏威夷", "美国", 120)));
     
-    // 荷兰殖民地
-    provinces.push_back(std::unique_ptr<Province>(new Province("印尼", "荷兰", 150)));
+    // ========== 奥匈帝国 ==========
+    provinces.push_back(std::unique_ptr<Province>(new Province("维也纳", "奥匈帝国", 230)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("布达佩斯", "奥匈帝国", 180)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("布拉格", "奥匈帝国", 150)));
     
-    // 意大利租界
+    // ========== 意大利王国 ==========
+    provinces.push_back(std::unique_ptr<Province>(new Province("罗马", "意大利", 220)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("米兰", "意大利", 200)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("威尼斯", "意大利", 170)));
     provinces.push_back(std::unique_ptr<Province>(new Province("天津租界", "意大利", 90)));
     
-    // 奥匈帝国势力
-    provinces.push_back(std::unique_ptr<Province>(new Province("东欧据点", "奥匈帝国", 100)));
+    // ========== 荷兰 ==========
+    provinces.push_back(std::unique_ptr<Province>(new Province("阿姆斯特丹", "荷兰", 210)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("印度尼西亚", "荷兰", 160)));
+    
+    // ========== 葡萄牙 ==========
+    provinces.push_back(std::unique_ptr<Province>(new Province("里斯本", "葡萄牙", 180)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("果阿", "葡萄牙", 70)));     // 印度殖民地
+    
+    // ========== 其他势力 ==========
+    provinces.push_back(std::unique_ptr<Province>(new Province("朝鲜", "日本", 110)));      // 日本保护国
+    provinces.push_back(std::unique_ptr<Province>(new Province("泰国", "中立", 100)));      // 暹罗（独立）
+    provinces.push_back(std::unique_ptr<Province>(new Province("波斯", "中立", 130)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("阿富汗", "中立", 80)));
 }
 
 void Game::initTechnologies() {
@@ -213,8 +260,8 @@ void Game::collectIncome() {
 }
 
 void Game::randomEvent() {
-    const int EVENT_CHANCE = 15;  // 15% chance for an event per turn
-    const int EVENT_TYPES = 5;    // Total number of different event types
+    const int EVENT_CHANCE = 20;  // 20% chance for an event per turn
+    const int EVENT_TYPES = 9;    // Total number of different event types
     
     int chance = std::rand() % 100;
     
@@ -232,8 +279,9 @@ void Game::randomEvent() {
                 event = GameEvent("义和团运动", 
                     "排外运动兴起，列强不满", 
                     -15, -200, 0);
-                for (auto& pair : diplomacy) {
-                    pair.second -= 10;
+                for (std::map<std::string, int>::iterator it = diplomacy.begin(); 
+                     it != diplomacy.end(); ++it) {
+                    it->second -= 10;
                 }
                 break;
             case 2:
@@ -251,20 +299,110 @@ void Game::randomEvent() {
                     "水旱灾害影响多个省份", 
                     -10, -250, 0);
                 break;
+            case 5: {
+                // 罢工事件
+                std::vector<int> qingProvinces;
+                for (size_t i = 0; i < provinces.size(); i++) {
+                    if (provinces[i]->getController() == "清国") {
+                        qingProvinces.push_back(i);
+                    }
+                }
+                if (!qingProvinces.empty()) {
+                    int target = qingProvinces[std::rand() % qingProvinces.size()];
+                    uprisingProvinces.push_back(target);
+                    provinces[target]->adjustStability(-25);
+                    event = GameEvent("工人罢工", 
+                        provinces[target]->getName() + " 发生大规模罢工！需要镇压", 
+                        0, -150, 0);
+                    std::cout << "\n!!! 警告：" << provinces[target]->getName() 
+                              << " (编号" << target << ") 发生罢工，可使用菜单选项12镇压！\n";
+                }
+                break;
+            }
+            case 6: {
+                // 农民起义
+                std::vector<int> qingProvinces;
+                for (size_t i = 0; i < provinces.size(); i++) {
+                    if (provinces[i]->getController() == "清国") {
+                        qingProvinces.push_back(i);
+                    }
+                }
+                if (!qingProvinces.empty()) {
+                    int target = qingProvinces[std::rand() % qingProvinces.size()];
+                    uprisingProvinces.push_back(target);
+                    provinces[target]->adjustStability(-30);
+                    provinces[target]->setTroops(
+                        std::max(0, provinces[target]->getTroops() - 100)
+                    );
+                    event = GameEvent("农民起义", 
+                        provinces[target]->getName() + " 爆发农民起义！", 
+                        0, -200, -100);
+                    std::cout << "\n!!! 警告：" << provinces[target]->getName() 
+                              << " (编号" << target << ") 发生起义，可使用菜单选项12镇压！\n";
+                }
+                break;
+            }
+            case 7: {
+                // 士兵哗变
+                std::vector<int> qingProvinces;
+                for (size_t i = 0; i < provinces.size(); i++) {
+                    if (provinces[i]->getController() == "清国" && 
+                        provinces[i]->getTroops() > 50) {
+                        qingProvinces.push_back(i);
+                    }
+                }
+                if (!qingProvinces.empty()) {
+                    int target = qingProvinces[std::rand() % qingProvinces.size()];
+                    uprisingProvinces.push_back(target);
+                    int troopLoss = provinces[target]->getTroops() / 3;
+                    provinces[target]->setTroops(
+                        provinces[target]->getTroops() - troopLoss
+                    );
+                    provinces[target]->adjustStability(-20);
+                    event = GameEvent("士兵哗变", 
+                        provinces[target]->getName() + " 驻军哗变！", 
+                        0, 0, -troopLoss);
+                    std::cout << "\n!!! 警告：" << provinces[target]->getName() 
+                              << " (编号" << target << ") 士兵哗变，可使用菜单选项12镇压！\n";
+                }
+                break;
+            }
+            case 8: {
+                // 学生运动
+                std::vector<int> qingProvinces;
+                for (size_t i = 0; i < provinces.size(); i++) {
+                    if (provinces[i]->getController() == "清国") {
+                        qingProvinces.push_back(i);
+                    }
+                }
+                if (!qingProvinces.empty()) {
+                    int target = qingProvinces[std::rand() % qingProvinces.size()];
+                    uprisingProvinces.push_back(target);
+                    provinces[target]->adjustStability(-15);
+                    event = GameEvent("学生运动", 
+                        provinces[target]->getName() + " 学生要求变法！", 
+                        0, -100, 0);
+                    std::cout << "\n!!! 警告：" << provinces[target]->getName() 
+                              << " (编号" << target << ") 学生运动，可使用菜单选项12镇压！\n";
+                }
+                break;
+            }
         }
         
-        std::cout << "\n╔════════════════════════════════════╗\n";
-        std::cout << "║ ★ 事件: " << std::setw(26) << std::left << event.title << "║\n";
-        std::cout << "╠════════════════════════════════════╣\n";
-        std::cout << "║ " << std::setw(35) << std::left << event.description << "║\n";
-        std::cout << "╚════════════════════════════════════╝\n\n";
-        
-        treasury += event.moneyEffect;
+        if (!event.title.empty()) {
+            std::cout << "\n╔════════════════════════════════════╗\n";
+            std::cout << "║ ★ 事件: " << std::setw(26) << std::left << event.title << "║\n";
+            std::cout << "╠════════════════════════════════════╣\n";
+            std::cout << "║ " << std::setw(35) << std::left << event.description << "║\n";
+            std::cout << "╚════════════════════════════════════╝\n\n";
+            
+            treasury += event.moneyEffect;
+        }
         
         if (event.stabilityEffect != 0) {
-            for (auto& province : provinces) {
-                if (province->getController() == "清国") {
-                    province->adjustStability(event.stabilityEffect);
+            for (size_t i = 0; i < provinces.size(); i++) {
+                if (provinces[i]->getController() == "清国") {
+                    provinces[i]->adjustStability(event.stabilityEffect);
                 }
             }
         }
@@ -557,33 +695,65 @@ void Game::enactReforms() {
 void Game::attackProvince() {
     std::cout << "\n=== 进攻敌方省份 ===\n";
     
-    // List enemy provinces
-    std::vector<int> enemyProvinces;
+    // 收集所有敌对国家
+    std::map<std::string, std::vector<int>> countriesMap;
     for (size_t i = 0; i < provinces.size(); i++) {
         if (provinces[i]->getController() != "清国") {
-            enemyProvinces.push_back(i);
-            std::cout << i << ". " << provinces[i]->getName() 
-                      << " (控制: " << provinces[i]->getController()
-                      << ", 驻军: " << provinces[i]->getTroops() << ")\n";
+            countriesMap[provinces[i]->getController()].push_back(i);
         }
     }
     
-    if (enemyProvinces.empty()) {
+    if (countriesMap.empty()) {
         std::cout << "没有敌方省份可以进攻！\n";
         return;
     }
     
-    std::cout << "\n选择要进攻的省份编号 (-1取消): ";
-    int targetIndex;
-    std::cin >> targetIndex;
+    // 显示所有敌对国家
+    std::cout << "\n可进攻的国家：\n";
+    std::vector<std::string> countryList;
+    int idx = 0;
+    for (std::map<std::string, std::vector<int>>::iterator it = countriesMap.begin(); 
+         it != countriesMap.end(); ++it) {
+        std::cout << idx << ". " << it->first 
+                  << " (" << it->second.size() << "个省份)\n";
+        countryList.push_back(it->first);
+        idx++;
+    }
     
-    if (targetIndex == -1) return;
+    std::cout << "\n选择要进攻的国家编号 (-1取消): ";
+    int countryChoice;
+    std::cin >> countryChoice;
     
-    if (targetIndex < 0 || targetIndex >= static_cast<int>(provinces.size()) ||
-        provinces[targetIndex]->getController() == "清国") {
-        std::cout << "无效的目标！\n";
+    if (countryChoice == -1) return;
+    
+    if (countryChoice < 0 || countryChoice >= static_cast<int>(countryList.size())) {
+        std::cout << "无效的选择！\n";
         return;
     }
+    
+    std::string targetCountry = countryList[countryChoice];
+    std::vector<int>& targetProvinces = countriesMap[targetCountry];
+    
+    // 显示该国家的所有省份
+    std::cout << "\n" << targetCountry << " 的省份：\n";
+    for (size_t i = 0; i < targetProvinces.size(); i++) {
+        int provIdx = targetProvinces[i];
+        std::cout << i << ". " << provinces[provIdx]->getName() 
+                  << " (驻军: " << provinces[provIdx]->getTroops() << ")\n";
+    }
+    
+    std::cout << "\n选择要进攻的省份编号 (-1取消): ";
+    int provinceChoice;
+    std::cin >> provinceChoice;
+    
+    if (provinceChoice == -1) return;
+    
+    if (provinceChoice < 0 || provinceChoice >= static_cast<int>(targetProvinces.size())) {
+        std::cout << "无效的选择！\n";
+        return;
+    }
+    
+    int targetIndex = targetProvinces[provinceChoice];
     
     std::cout << "请输入派遣进攻的兵力: ";
     int attackForce;
@@ -596,9 +766,9 @@ void Game::attackProvince() {
     
     // Check if we have enough troops (from all our provinces)
     int totalTroops = 0;
-    for (const auto& prov : provinces) {
-        if (prov->getController() == "清国") {
-            totalTroops += prov->getTroops();
+    for (size_t i = 0; i < provinces.size(); i++) {
+        if (provinces[i]->getController() == "清国") {
+            totalTroops += provinces[i]->getTroops();
         }
     }
     
@@ -611,9 +781,9 @@ void Game::attackProvince() {
     int attackPower = attackForce + militaryTech;
     
     // Add general bonus if available
-    for (const auto& general : generals) {
-        if (general.isRecruited()) {
-            attackPower += general.getCombatPower() / 2;  // Half bonus for attack
+    for (size_t i = 0; i < generals.size(); i++) {
+        if (generals[i].isRecruited()) {
+            attackPower += generals[i].getCombatPower() / 2;  // Half bonus for attack
             break;  // Only one general per attack
         }
     }
@@ -629,6 +799,7 @@ void Game::attackProvince() {
     
     if (attackPower > defense) {
         std::cout << "*** 胜利！成功攻占 " << provinces[targetIndex]->getName() << "！***\n";
+        std::string oldController = provinces[targetIndex]->getController();
         provinces[targetIndex]->setController("清国");
         int casualties = defense / 2;
         provinces[targetIndex]->setTroops(attackForce - casualties);
@@ -636,15 +807,66 @@ void Game::attackProvince() {
         std::cout << "占领后驻军: " << provinces[targetIndex]->getTroops() << " 人\n";
         
         // Worsen relations with the defeated power
-        std::string enemy = provinces[targetIndex]->getController();
-        if (diplomacy.find(enemy) != diplomacy.end()) {
-            diplomacy[enemy] -= 20;
+        if (diplomacy.find(oldController) != diplomacy.end()) {
+            diplomacy[oldController] -= 20;
         }
     } else {
         std::cout << "*** 战败！进攻失败 ***\n";
         int casualties = attackForce / 2;
         std::cout << "我军伤亡: " << casualties << " 人\n";
         provinces[targetIndex]->setTroops(defense - attackPower / 2);
+    }
+}
+
+void Game::suppressUprising(int provinceIndex) {
+    if (provinceIndex < 0 || provinceIndex >= static_cast<int>(provinces.size())) {
+        std::cout << "无效的省份编号！\n";
+        return;
+    }
+    
+    // 检查该省份是否有起义
+    bool hasUprising = false;
+    for (size_t i = 0; i < uprisingProvinces.size(); i++) {
+        if (uprisingProvinces[i] == provinceIndex) {
+            hasUprising = true;
+            uprisingProvinces.erase(uprisingProvinces.begin() + i);
+            break;
+        }
+    }
+    
+    if (!hasUprising) {
+        std::cout << "该省份没有起义！\n";
+        return;
+    }
+    
+    if (provinces[provinceIndex]->getController() != "清国") {
+        std::cout << "该省份不在清国控制之下！\n";
+        return;
+    }
+    
+    int cost = 200;
+    std::cout << "\n--- 镇压起义 ---\n";
+    std::cout << "省份: " << provinces[provinceIndex]->getName() << "\n";
+    std::cout << "镇压费用: " << cost << " 银两\n";
+    std::cout << "当前国库: " << treasury << " 银两\n";
+    std::cout << "确认镇压? (1=是, 0=否): ";
+    
+    int confirm;
+    std::cin >> confirm;
+    
+    if (confirm == 1) {
+        if (treasury >= cost) {
+            treasury -= cost;
+            provinces[provinceIndex]->adjustStability(30);
+            provinces[provinceIndex]->setTroops(
+                provinces[provinceIndex]->getTroops() + 50
+            );
+            std::cout << "\n✓ 成功镇压 " << provinces[provinceIndex]->getName() << " 的起义！\n";
+            std::cout << "稳定度提升30，增加50驻军\n";
+            std::cout << "剩余国库: " << treasury << " 银两\n";
+        } else {
+            std::cout << "\n✗ 国库不足！还需要 " << (cost - treasury) << " 银两\n";
+        }
     }
 }
 
@@ -989,11 +1211,18 @@ void Game::run() {
             std::cout << "║ 6. 谍报活动                        ║\n";
             std::cout << "║ 7. 建造防御工事                    ║\n";
             std::cout << "║ 8. 推进改革                        ║\n";
-            std::cout << "║ 9. 进攻敌方省份  [新]              ║\n";
+            std::cout << "║ 9. 进攻敌方省份                    ║\n";
             std::cout << "║ 10. 保存游戏                       ║\n";
-            std::cout << "║ 11. 结束回合                       ║\n";
+            std::cout << "║ 11. 镇压起义  [新]                 ║\n";
+            std::cout << "║ 12. 结束回合                       ║\n";
             std::cout << "║ 0. 退出游戏                        ║\n";
             std::cout << "╚════════════════════════════════════╝\n";
+            
+            // 显示当前起义信息
+            if (!uprisingProvinces.empty()) {
+                std::cout << "\n⚠ 当前有 " << uprisingProvinces.size() << " 个省份发生起义！\n";
+            }
+            
             std::cout << "选择: ";
             
             int choice;
@@ -1067,6 +1296,23 @@ void Game::run() {
             } else if (choice == 10) {
                 saveGame(currentSaveFile);
             } else if (choice == 11) {
+                // 镇压起义
+                if (uprisingProvinces.empty()) {
+                    std::cout << "当前没有起义需要镇压！\n";
+                } else {
+                    std::cout << "\n发生起义的省份：\n";
+                    for (size_t i = 0; i < uprisingProvinces.size(); i++) {
+                        int idx = uprisingProvinces[i];
+                        std::cout << idx << ". " << provinces[idx]->getName() << "\n";
+                    }
+                    std::cout << "\n请输入要镇压的省份编号 (-1取消): ";
+                    int provinceIndex;
+                    std::cin >> provinceIndex;
+                    if (provinceIndex != -1) {
+                        suppressUprising(provinceIndex);
+                    }
+                }
+            } else if (choice == 12) {
                 // End turn
                 std::cout << "回合结束...\n";
                 endTurn = true;

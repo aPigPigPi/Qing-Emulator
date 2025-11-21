@@ -27,6 +27,7 @@ private:
     int spyNetwork;        // Intelligence network level (0-5)
     bool gameEnded;        // Whether game has ended (for save file)
     std::string currentSaveFile;  // Current save file name
+    std::vector<int> uprisingProvinces;  // Provinces with active uprisings
 
     void initProvinces();
     void initTechnologies();
@@ -50,6 +51,7 @@ private:
     void buildFortification(int provinceIndex);
     void enactReforms();
     void attackProvince();  // New: Attack enemy provinces
+    void suppressUprising(int provinceIndex);  // New: Suppress uprisings
     
     // Save/Load system
     void saveGame(const std::string& filename) const;
