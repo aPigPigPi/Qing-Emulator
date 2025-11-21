@@ -11,17 +11,17 @@ Game::Game() : turn(0), gameOver(false), victory(false),
                gameEnded(false), currentSaveFile("") {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
     
-    // æ‰©å±•åˆ—å¼º - æ‰€æœ‰å…«å›½è”å†›æˆå‘˜å›½åŠå…¶ä»–åŠ¿åŠ›
-    foreignPowers.push_back("è‹±å›½");      // Britain
-    foreignPowers.push_back("æ³•å›½");      // France
-    foreignPowers.push_back("ä¿„å›½");      // Russia
-    foreignPowers.push_back("æ—¥æœ¬");      // Japan
-    foreignPowers.push_back("å¾·å›½");      // Germany
-    foreignPowers.push_back("ç¾å›½");      // USA
-    foreignPowers.push_back("æ„å¤§åˆ©");    // Italy
-    foreignPowers.push_back("å¥¥åŒˆå¸å›½");  // Austria-Hungary
-    foreignPowers.push_back("è·å…°");      // Netherlands
-    foreignPowers.push_back("è‘¡è„ç‰™");    // Portugal
+    // À©Õ¹ÁĞÇ¿ - ËùÓĞ°Ë¹úÁª¾ü³ÉÔ±¹ú¼°ÆäËûÊÆÁ¦
+    foreignPowers.push_back("Ó¢¹ú");      // Britain
+    foreignPowers.push_back("·¨¹ú");      // France
+    foreignPowers.push_back("¶í¹ú");      // Russia
+    foreignPowers.push_back("ÈÕ±¾");      // Japan
+    foreignPowers.push_back("µÂ¹ú");      // Germany
+    foreignPowers.push_back("ÃÀ¹ú");      // USA
+    foreignPowers.push_back("Òâ´óÀû");    // Italy
+    foreignPowers.push_back("°ÂĞÙµÛ¹ú");  // Austria-Hungary
+    foreignPowers.push_back("ºÉÀ¼");      // Netherlands
+    foreignPowers.push_back("ÆÏÌÑÑÀ");    // Portugal
     
     initProvinces();
     initTechnologies();
@@ -30,158 +30,158 @@ Game::Game() : turn(0), gameOver(false), victory(false),
 }
 
 void Game::initProvinces() {
-    // ========== å¤§æ¸…å¸å›½æœ¬åœŸ ==========
-    // ç›´éš¶åœ°åŒºï¼ˆç›¸å½“äºä»Šæ²³åŒ—ã€åŒ—äº¬ã€å¤©æ´¥ï¼‰
-    provinces.push_back(std::unique_ptr<Province>(new Province("ç›´éš¶", "æ¸…å›½", 180)));      // Capital region
-    provinces.push_back(std::unique_ptr<Province>(new Province("å±±è¥¿", "æ¸…å›½", 90)));
+    // ========== ´óÇåµÛ¹ú±¾ÍÁ ==========
+    // Ö±Á¥µØÇø£¨Ïàµ±ÓÚ½ñºÓ±±¡¢±±¾©¡¢Ìì½ò£©
+    provinces.push_back(std::unique_ptr<Province>(new Province("Ö±Á¥", "Çå¹ú", 180)));      // Capital region
+    provinces.push_back(std::unique_ptr<Province>(new Province("É½Î÷", "Çå¹ú", 90)));
     
-    // ä¸œä¸‰çœï¼ˆæ»¡æ´²ï¼‰
-    provinces.push_back(std::unique_ptr<Province>(new Province("å¥‰å¤©", "æ¸…å›½", 120)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("å‰æ—", "æ¸…å›½", 80)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("é»‘é¾™æ±Ÿ", "æ¸…å›½", 70)));
+    // ¶«ÈıÊ¡£¨ÂúÖŞ£©
+    provinces.push_back(std::unique_ptr<Province>(new Province("·îÌì", "Çå¹ú", 120)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("¼ªÁÖ", "Çå¹ú", 80)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("ºÚÁú½­", "Çå¹ú", 70)));
     
-    // æ±Ÿå—åœ°åŒº
-    provinces.push_back(std::unique_ptr<Province>(new Province("æ±Ÿè‹", "æ¸…å›½", 220)));      // Very rich
-    provinces.push_back(std::unique_ptr<Province>(new Province("æµ™æ±Ÿ", "æ¸…å›½", 190)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("å®‰å¾½", "æ¸…å›½", 100)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("æ±Ÿè¥¿", "æ¸…å›½", 95)));
+    // ½­ÄÏµØÇø
+    provinces.push_back(std::unique_ptr<Province>(new Province("½­ËÕ", "Çå¹ú", 220)));      // Very rich
+    provinces.push_back(std::unique_ptr<Province>(new Province("Õã½­", "Çå¹ú", 190)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("°²»Õ", "Çå¹ú", 100)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("½­Î÷", "Çå¹ú", 95)));
     
-    // ä¸œå—æ²¿æµ·
-    provinces.push_back(std::unique_ptr<Province>(new Province("ç¦å»º", "æ¸…å›½", 130)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("å¹¿ä¸œ", "æ¸…å›½", 230)));      // Very rich
-    provinces.push_back(std::unique_ptr<Province>(new Province("å¹¿è¥¿", "æ¸…å›½", 85)));
+    // ¶«ÄÏÑØº£
+    provinces.push_back(std::unique_ptr<Province>(new Province("¸£½¨", "Çå¹ú", 130)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("¹ã¶«", "Çå¹ú", 230)));      // Very rich
+    provinces.push_back(std::unique_ptr<Province>(new Province("¹ãÎ÷", "Çå¹ú", 85)));
     
-    // ä¸­åŸ
-    provinces.push_back(std::unique_ptr<Province>(new Province("å±±ä¸œ", "æ¸…å›½", 150)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("æ²³å—", "æ¸…å›½", 110)));
+    // ÖĞÔ­
+    provinces.push_back(std::unique_ptr<Province>(new Province("É½¶«", "Çå¹ú", 150)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("ºÓÄÏ", "Çå¹ú", 110)));
     
-    // ä¸¤æ¹–
-    provinces.push_back(std::unique_ptr<Province>(new Province("æ¹–åŒ—", "æ¸…å›½", 120)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("æ¹–å—", "æ¸…å›½", 110)));
+    // Á½ºş
+    provinces.push_back(std::unique_ptr<Province>(new Province("ºş±±", "Çå¹ú", 120)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("ºşÄÏ", "Çå¹ú", 110)));
     
-    // è¥¿å—
-    provinces.push_back(std::unique_ptr<Province>(new Province("å››å·", "æ¸…å›½", 140)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("è´µå·", "æ¸…å›½", 70)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("äº‘å—", "æ¸…å›½", 90)));
+    // Î÷ÄÏ
+    provinces.push_back(std::unique_ptr<Province>(new Province("ËÄ´¨", "Çå¹ú", 140)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("¹óÖİ", "Çå¹ú", 70)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("ÔÆÄÏ", "Çå¹ú", 90)));
     
-    // è¥¿åŒ—
-    provinces.push_back(std::unique_ptr<Province>(new Province("é™•è¥¿", "æ¸…å›½", 100)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("ç”˜è‚ƒ", "æ¸…å›½", 65)));
+    // Î÷±±
+    provinces.push_back(std::unique_ptr<Province>(new Province("ÉÂÎ÷", "Çå¹ú", 100)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("¸ÊËà", "Çå¹ú", 65)));
     
-    // è¾¹ç–†è—©éƒ¨
-    provinces.push_back(std::unique_ptr<Province>(new Province("è’™å¤", "æ¸…å›½", 80)));       // è’™å¤å±äºæ¸…å›½
-    provinces.push_back(std::unique_ptr<Province>(new Province("æ–°ç–†", "æ¸…å›½", 60)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("é’æµ·", "æ¸…å›½", 45)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("è¥¿è—", "æ¸…å›½", 40)));
+    // ±ß½®·ª²¿
+    provinces.push_back(std::unique_ptr<Province>(new Province("ÃÉ¹Å", "Çå¹ú", 80)));       // ÃÉ¹ÅÊôÓÚÇå¹ú
+    provinces.push_back(std::unique_ptr<Province>(new Province("ĞÂ½®", "Çå¹ú", 60)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("Çàº£", "Çå¹ú", 45)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("Î÷²Ø", "Çå¹ú", 40)));
     
-    // ========== è¢«å é¢†çš„ä¸­å›½é¢†åœŸ ==========
-    provinces.push_back(std::unique_ptr<Province>(new Province("é¦™æ¸¯", "è‹±å›½", 200)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("æ¾³é—¨", "è‘¡è„ç‰™", 80)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("å°æ¹¾", "æ—¥æœ¬", 150)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("æ—…é¡º", "ä¿„å›½", 140)));      // ä¿„å 
-    provinces.push_back(std::unique_ptr<Province>(new Province("èƒ¶å·æ¹¾", "å¾·å›½", 130)));    // å¾·å é’å²›
+    // ========== ±»Õ¼ÁìµÄÖĞ¹úÁìÍÁ ==========
+    provinces.push_back(std::unique_ptr<Province>(new Province("Ïã¸Û", "Ó¢¹ú", 200)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("°ÄÃÅ", "ÆÏÌÑÑÀ", 80)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("Ì¨Íå", "ÈÕ±¾", 150)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("ÂÃË³", "¶í¹ú", 140)));      // ¶íÕ¼
+    provinces.push_back(std::unique_ptr<Province>(new Province("½ºÖİÍå", "µÂ¹ú", 130)));    // µÂÕ¼Çàµº
     
-    // ========== æ—¥æœ¬ ==========
-    provinces.push_back(std::unique_ptr<Province>(new Province("æ±Ÿæˆ·", "æ—¥æœ¬", 220)));      // ä¸œäº¬
-    provinces.push_back(std::unique_ptr<Province>(new Province("äº¬éƒ½", "æ—¥æœ¬", 180)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("å¤§é˜ª", "æ—¥æœ¬", 190)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("åŒ—æµ·é“", "æ—¥æœ¬", 100)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("ä¹å·", "æ—¥æœ¬", 130)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("å››å›½", "æ—¥æœ¬", 90)));
+    // ========== ÈÕ±¾ ==========
+    provinces.push_back(std::unique_ptr<Province>(new Province("½­»§", "ÈÕ±¾", 220)));      // ¶«¾©
+    provinces.push_back(std::unique_ptr<Province>(new Province("¾©¶¼", "ÈÕ±¾", 180)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("´óÚæ", "ÈÕ±¾", 190)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("±±º£µÀ", "ÈÕ±¾", 100)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("¾ÅÖİ", "ÈÕ±¾", 130)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("ËÄ¹ú", "ÈÕ±¾", 90)));
     
-    // ========== ä¿„ç½—æ–¯å¸å›½ ==========
-    provinces.push_back(std::unique_ptr<Province>(new Province("æµ·å‚å´´", "ä¿„å›½", 140)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("è¥¿ä¼¯åˆ©äºš", "ä¿„å›½", 90)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("ä¸­äºš", "ä¿„å›½", 80)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("è«æ–¯ç§‘", "ä¿„å›½", 250)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("åœ£å½¼å¾—å ¡", "ä¿„å›½", 230)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("ä¹Œå…‹å…°", "ä¿„å›½", 180)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("é«˜åŠ ç´¢", "ä¿„å›½", 120)));
+    // ========== ¶íÂŞË¹µÛ¹ú ==========
+    provinces.push_back(std::unique_ptr<Province>(new Province("º£²ÎáË", "¶í¹ú", 140)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("Î÷²®ÀûÑÇ", "¶í¹ú", 90)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("ÖĞÑÇ", "¶í¹ú", 80)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("ÄªË¹¿Æ", "¶í¹ú", 250)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("Ê¥±ËµÃ±¤", "¶í¹ú", 230)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("ÎÚ¿ËÀ¼", "¶í¹ú", 180)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("¸ß¼ÓË÷", "¶í¹ú", 120)));
     
-    // ========== å¤§è‹±å¸å›½ ==========
-    // è‹±å›½æœ¬åœŸ
-    provinces.push_back(std::unique_ptr<Province>(new Province("ä¼¦æ•¦", "è‹±å›½", 300)));      // Very rich
-    provinces.push_back(std::unique_ptr<Province>(new Province("æ›¼å½»æ–¯ç‰¹", "è‹±å›½", 220)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("è‹æ ¼å…°", "è‹±å›½", 150)));
-    // æ®–æ°‘åœ°
-    provinces.push_back(std::unique_ptr<Province>(new Province("å°åº¦", "è‹±å›½", 250)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("ç¼…ç”¸", "è‹±å›½", 110)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("é©¬æ¥äºš", "è‹±å›½", 140)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("æ–°åŠ å¡", "è‹±å›½", 170)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("æ¾³å¤§åˆ©äºš", "è‹±å›½", 160)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("æ–°è¥¿å…°", "è‹±å›½", 110)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("åŠ æ‹¿å¤§", "è‹±å›½", 180)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("å—é", "è‹±å›½", 140)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("åŸƒåŠ", "è‹±å›½", 150)));
+    // ========== ´óÓ¢µÛ¹ú ==========
+    // Ó¢¹ú±¾ÍÁ
+    provinces.push_back(std::unique_ptr<Province>(new Province("Â×¶Ø", "Ó¢¹ú", 300)));      // Very rich
+    provinces.push_back(std::unique_ptr<Province>(new Province("Âü³¹Ë¹ÌØ", "Ó¢¹ú", 220)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("ËÕ¸ñÀ¼", "Ó¢¹ú", 150)));
+    // Ö³ÃñµØ
+    provinces.push_back(std::unique_ptr<Province>(new Province("Ó¡¶È", "Ó¢¹ú", 250)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("Ãåµé", "Ó¢¹ú", 110)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("ÂíÀ´ÑÇ", "Ó¢¹ú", 140)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("ĞÂ¼ÓÆÂ", "Ó¢¹ú", 170)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("°Ä´óÀûÑÇ", "Ó¢¹ú", 160)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("ĞÂÎ÷À¼", "Ó¢¹ú", 110)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("¼ÓÄÃ´ó", "Ó¢¹ú", 180)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("ÄÏ·Ç", "Ó¢¹ú", 140)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("°£¼°", "Ó¢¹ú", 150)));
     
-    // ========== æ³•å…°è¥¿å¸å›½ ==========
-    provinces.push_back(std::unique_ptr<Province>(new Province("å·´é»", "æ³•å›½", 280)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("é©¬èµ›", "æ³•å›½", 180)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("é‡Œæ˜‚", "æ³•å›½", 160)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("è¶Šå—", "æ³•å›½", 130)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("æŸ¬åŸ”å¯¨", "æ³•å›½", 90)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("è€æŒ", "æ³•å›½", 70)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("é˜¿å°”åŠåˆ©äºš", "æ³•å›½", 120)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("æ‘©æ´›å“¥", "æ³•å›½", 100)));
+    // ========== ·¨À¼Î÷µÛ¹ú ==========
+    provinces.push_back(std::unique_ptr<Province>(new Province("°ÍÀè", "·¨¹ú", 280)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("ÂíÈü", "·¨¹ú", 180)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("Àï°º", "·¨¹ú", 160)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("Ô½ÄÏ", "·¨¹ú", 130)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("¼íÆÒÕ¯", "·¨¹ú", 90)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("ÀÏÎÎ", "·¨¹ú", 70)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("°¢¶û¼°ÀûÑÇ", "·¨¹ú", 120)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("Ä¦Âå¸ç", "·¨¹ú", 100)));
     
-    // ========== å¾·æ„å¿—å¸å›½ ==========
-    provinces.push_back(std::unique_ptr<Province>(new Province("æŸæ—", "å¾·å›½", 260)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("æ±‰å ¡", "å¾·å›½", 200)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("æ…•å°¼é»‘", "å¾·å›½", 180)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("ç§‘éš†", "å¾·å›½", 160)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("å¦å™¶å°¼å–€", "å¾·å›½", 80)));   // ä¸œé
-    provinces.push_back(std::unique_ptr<Province>(new Province("å–€éº¦éš†", "å¾·å›½", 70)));
+    // ========== µÂÒâÖ¾µÛ¹ú ==========
+    provinces.push_back(std::unique_ptr<Province>(new Province("°ØÁÖ", "µÂ¹ú", 260)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("ºº±¤", "µÂ¹ú", 200)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("Ä½ÄáºÚ", "µÂ¹ú", 180)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("¿ÆÂ¡", "µÂ¹ú", 160)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("Ì¹¸ÁÄá¿¦", "µÂ¹ú", 80)));   // ¶«·Ç
+    provinces.push_back(std::unique_ptr<Province>(new Province("¿¦ÂóÂ¡", "µÂ¹ú", 70)));
     
-    // ========== ç¾åˆ©åšåˆä¼—å›½ ==========
-    provinces.push_back(std::unique_ptr<Province>(new Province("åç››é¡¿", "ç¾å›½", 240)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("çº½çº¦", "ç¾å›½", 280)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("èŠåŠ å“¥", "ç¾å›½", 220)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("æ—§é‡‘å±±", "ç¾å›½", 200)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("è²å¾‹å®¾", "ç¾å›½", 140)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("å…³å²›", "ç¾å›½", 80)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("å¤å¨å¤·", "ç¾å›½", 120)));
+    // ========== ÃÀÀû¼áºÏÖÚ¹ú ==========
+    provinces.push_back(std::unique_ptr<Province>(new Province("»ªÊ¢¶Ù", "ÃÀ¹ú", 240)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("Å¦Ô¼", "ÃÀ¹ú", 280)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("Ö¥¼Ó¸ç", "ÃÀ¹ú", 220)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("¾É½ğÉ½", "ÃÀ¹ú", 200)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("·ÆÂÉ±ö", "ÃÀ¹ú", 140)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("¹Øµº", "ÃÀ¹ú", 80)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("ÏÄÍşÒÄ", "ÃÀ¹ú", 120)));
     
-    // ========== å¥¥åŒˆå¸å›½ ==========
-    provinces.push_back(std::unique_ptr<Province>(new Province("ç»´ä¹Ÿçº³", "å¥¥åŒˆå¸å›½", 230)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("å¸ƒè¾¾ä½©æ–¯", "å¥¥åŒˆå¸å›½", 180)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("å¸ƒæ‹‰æ ¼", "å¥¥åŒˆå¸å›½", 150)));
+    // ========== °ÂĞÙµÛ¹ú ==========
+    provinces.push_back(std::unique_ptr<Province>(new Province("Î¬Ò²ÄÉ", "°ÂĞÙµÛ¹ú", 230)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("²¼´ïÅåË¹", "°ÂĞÙµÛ¹ú", 180)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("²¼À­¸ñ", "°ÂĞÙµÛ¹ú", 150)));
     
-    // ========== æ„å¤§åˆ©ç‹å›½ ==========
-    provinces.push_back(std::unique_ptr<Province>(new Province("ç½—é©¬", "æ„å¤§åˆ©", 220)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("ç±³å…°", "æ„å¤§åˆ©", 200)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("å¨å°¼æ–¯", "æ„å¤§åˆ©", 170)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("å¤©æ´¥ç§Ÿç•Œ", "æ„å¤§åˆ©", 90)));
+    // ========== Òâ´óÀûÍõ¹ú ==========
+    provinces.push_back(std::unique_ptr<Province>(new Province("ÂŞÂí", "Òâ´óÀû", 220)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("Ã×À¼", "Òâ´óÀû", 200)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("ÍşÄáË¹", "Òâ´óÀû", 170)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("Ìì½ò×â½ç", "Òâ´óÀû", 90)));
     
-    // ========== è·å…° ==========
-    provinces.push_back(std::unique_ptr<Province>(new Province("é˜¿å§†æ–¯ç‰¹ä¸¹", "è·å…°", 210)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("å°åº¦å°¼è¥¿äºš", "è·å…°", 160)));
+    // ========== ºÉÀ¼ ==========
+    provinces.push_back(std::unique_ptr<Province>(new Province("°¢Ä·Ë¹ÌØµ¤", "ºÉÀ¼", 210)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("Ó¡¶ÈÄáÎ÷ÑÇ", "ºÉÀ¼", 160)));
     
-    // ========== è‘¡è„ç‰™ ==========
-    provinces.push_back(std::unique_ptr<Province>(new Province("é‡Œæ–¯æœ¬", "è‘¡è„ç‰™", 180)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("æœé˜¿", "è‘¡è„ç‰™", 70)));     // å°åº¦æ®–æ°‘åœ°
+    // ========== ÆÏÌÑÑÀ ==========
+    provinces.push_back(std::unique_ptr<Province>(new Province("ÀïË¹±¾", "ÆÏÌÑÑÀ", 180)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("¹û°¢", "ÆÏÌÑÑÀ", 70)));     // Ó¡¶ÈÖ³ÃñµØ
     
-    // ========== å…¶ä»–åŠ¿åŠ› ==========
-    provinces.push_back(std::unique_ptr<Province>(new Province("æœé²œ", "æ—¥æœ¬", 110)));      // æ—¥æœ¬ä¿æŠ¤å›½
-    provinces.push_back(std::unique_ptr<Province>(new Province("æ³°å›½", "ä¸­ç«‹", 100)));      // æš¹ç½—ï¼ˆç‹¬ç«‹ï¼‰
-    provinces.push_back(std::unique_ptr<Province>(new Province("æ³¢æ–¯", "ä¸­ç«‹", 130)));
-    provinces.push_back(std::unique_ptr<Province>(new Province("é˜¿å¯Œæ±—", "ä¸­ç«‹", 80)));
+    // ========== ÆäËûÊÆÁ¦ ==========
+    provinces.push_back(std::unique_ptr<Province>(new Province("³¯ÏÊ", "ÈÕ±¾", 110)));      // ÈÕ±¾±£»¤¹ú
+    provinces.push_back(std::unique_ptr<Province>(new Province("Ì©¹ú", "ÖĞÁ¢", 100)));      // åßÂŞ£¨¶ÀÁ¢£©
+    provinces.push_back(std::unique_ptr<Province>(new Province("²¨Ë¹", "ÖĞÁ¢", 130)));
+    provinces.push_back(std::unique_ptr<Province>(new Province("°¢¸»º¹", "ÖĞÁ¢", 80)));
 }
 
 void Game::initTechnologies() {
-    technologies.push_back(Technology("æ´‹åŠ¡è¿åŠ¨", "å­¦ä¹ è¥¿æ–¹æŠ€æœ¯ï¼Œæå‡å·¥ä¸šèƒ½åŠ›", 500, 20, 50));
-    technologies.push_back(Technology("æ–°å¼é™†å†›", "å»ºç«‹ç°ä»£åŒ–é™†å†›", 800, 50, 0));
-    technologies.push_back(Technology("åŒ—æ´‹æ°´å¸ˆ", "å»ºç«‹ç°ä»£æµ·å†›", 1000, 40, 0));
-    technologies.push_back(Technology("é“è·¯å»ºè®¾", "ä¿®å»ºé“è·¯ç½‘ç»œ", 600, 10, 80));
-    technologies.push_back(Technology("ç”µæŠ¥ç³»ç»Ÿ", "å»ºç«‹é€šè®¯ç½‘ç»œ", 400, 15, 30));
-    technologies.push_back(Technology("ç»´æ–°å˜æ³•", "è¿›è¡Œæ”¿æ²»æ”¹é©", 700, 25, 60));
+    technologies.push_back(Technology("ÑóÎñÔË¶¯", "Ñ§Ï°Î÷·½¼¼Êõ£¬ÌáÉı¹¤ÒµÄÜÁ¦", 500, 20, 50));
+    technologies.push_back(Technology("ĞÂÊ½Â½¾ü", "½¨Á¢ÏÖ´ú»¯Â½¾ü", 800, 50, 0));
+    technologies.push_back(Technology("±±ÑóË®Ê¦", "½¨Á¢ÏÖ´úº£¾ü", 1000, 40, 0));
+    technologies.push_back(Technology("ÌúÂ·½¨Éè", "ĞŞ½¨ÌúÂ·ÍøÂç", 600, 10, 80));
+    technologies.push_back(Technology("µç±¨ÏµÍ³", "½¨Á¢Í¨Ñ¶ÍøÂç", 400, 15, 30));
+    technologies.push_back(Technology("Î¬ĞÂ±ä·¨", "½øĞĞÕşÖÎ¸Ä¸ï", 700, 25, 60));
 }
 
 void Game::initGenerals() {
-    generals.push_back(General("å·¦å®—æ£ ", 85, 300));
-    generals.push_back(General("æé¸¿ç« ", 75, 250));
-    generals.push_back(General("æ›¾å›½è—©", 80, 280));
-    generals.push_back(General("è¢ä¸–å‡¯", 70, 200));
-    generals.push_back(General("åˆ˜æ°¸ç¦", 65, 180));
+    generals.push_back(General("×ó×ÚÌÄ", 85, 300));
+    generals.push_back(General("ÀîºèÕÂ", 75, 250));
+    generals.push_back(General("Ôø¹ú·ª", 80, 280));
+    generals.push_back(General("Ô¬ÊÀ¿­", 70, 200));
+    generals.push_back(General("ÁõÓÀ¸£", 65, 180));
 }
 
 void Game::initDiplomacy() {
@@ -192,15 +192,15 @@ void Game::initDiplomacy() {
 
 void Game::displayProvinces() const {
     std::cout << "\n========================================\n";
-    std::cout << "          ç¬¬ " << turn << " å›åˆ - çœä»½çŠ¶å†µ\n";
+    std::cout << "          µÚ " << turn << " »ØºÏ - Ê¡·İ×´¿ö\n";
     std::cout << "========================================\n";
-    std::cout << std::left << std::setw(5) << "ç¼–å·" 
-              << std::setw(10) << "çœä»½" 
-              << std::setw(10) << "æ§åˆ¶è€…" 
-              << std::setw(8) << "é©»å†›"
-              << std::setw(8) << "æ”¶å…¥"
-              << std::setw(8) << "é˜²å¾¡"
-              << std::setw(8) << "ç¨³å®š" << "\n";
+    std::cout << std::left << std::setw(5) << "±àºÅ" 
+              << std::setw(10) << "Ê¡·İ" 
+              << std::setw(10) << "¿ØÖÆÕß" 
+              << std::setw(8) << "×¤¾ü"
+              << std::setw(8) << "ÊÕÈë"
+              << std::setw(8) << "·ÀÓù"
+              << std::setw(8) << "ÎÈ¶¨" << "\n";
     std::cout << "----------------------------------------\n";
     
     for (size_t i = 0; i < provinces.size(); i++) {
@@ -214,38 +214,38 @@ void Game::displayProvinces() const {
     }
     
     std::cout << "========================================\n";
-    std::cout << "æ¸…å›½æ§åˆ¶çœä»½æ•°: " << getQingProvinceCount() << "/" << provinces.size() << "\n";
+    std::cout << "Çå¹ú¿ØÖÆÊ¡·İÊı: " << getQingProvinceCount() << "/" << provinces.size() << "\n";
     std::cout << "========================================\n\n";
 }
 
 void Game::displayStatus() const {
-    std::cout << "\nâ•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—\n";
-    std::cout << "â•‘       å¤§æ¸…å¸å›½ - å›½å®¶çŠ¶å†µ          â•‘\n";
-    std::cout << "â• â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•£\n";
-    std::cout << "â•‘ å›åˆ: " << std::setw(28) << std::left << turn << "â•‘\n";
-    std::cout << "â•‘ å›½åº“: " << std::setw(28) << std::left << treasury << "â•‘\n";
-    std::cout << "â•‘ æ”¹é©è¿›åº¦: " << std::setw(24) << std::left << reformLevel << "â•‘\n";
-    std::cout << "â•‘ å†›äº‹ç§‘æŠ€: " << std::setw(24) << std::left << militaryTech << "â•‘\n";
-    std::cout << "â•‘ è°æŠ¥ç­‰çº§: " << std::setw(24) << std::left << spyNetwork << "â•‘\n";
-    std::cout << "â• â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•£\n";
-    std::cout << "â•‘ å¤–äº¤å…³ç³»:                          â•‘\n";
+    std::cout << "\n¨X¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨[\n";
+    std::cout << "¨U       ´óÇåµÛ¹ú - ¹ú¼Ò×´¿ö          ¨U\n";
+    std::cout << "¨d¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨g\n";
+    std::cout << "¨U »ØºÏ: " << std::setw(28) << std::left << turn << "¨U\n";
+    std::cout << "¨U ¹ú¿â: " << std::setw(28) << std::left << treasury << "¨U\n";
+    std::cout << "¨U ¸Ä¸ï½ø¶È: " << std::setw(24) << std::left << reformLevel << "¨U\n";
+    std::cout << "¨U ¾üÊÂ¿Æ¼¼: " << std::setw(24) << std::left << militaryTech << "¨U\n";
+    std::cout << "¨U µı±¨µÈ¼¶: " << std::setw(24) << std::left << spyNetwork << "¨U\n";
+    std::cout << "¨d¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨g\n";
+    std::cout << "¨U Íâ½»¹ØÏµ:                          ¨U\n";
     for (std::map<std::string, int>::const_iterator it = diplomacy.begin(); 
          it != diplomacy.end(); ++it) {
         std::string status;
-        if (it->second >= 50) status = "å‹å¥½";
-        else if (it->second >= 0) status = "ä¸­ç«‹";
-        else if (it->second >= -50) status = "å†·æ·¡";
-        else status = "æ•Œå¯¹";
-        std::cout << "â•‘   " << std::setw(8) << it->first 
-                  << std::setw(24) << std::left << status << "â•‘\n";
+        if (it->second >= 50) status = "ÓÑºÃ";
+        else if (it->second >= 0) status = "ÖĞÁ¢";
+        else if (it->second >= -50) status = "Àäµ­";
+        else status = "µĞ¶Ô";
+        std::cout << "¨U   " << std::setw(8) << it->first 
+                  << std::setw(24) << std::left << status << "¨U\n";
     }
-    std::cout << "â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\n\n";
+    std::cout << "¨^¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨a\n\n";
 }
 
 void Game::collectIncome() {
     int income = 0;
     for (size_t i = 0; i < provinces.size(); i++) {
-        if (provinces[i]->getController() == "æ¸…å›½") {
+        if (provinces[i]->getController() == "Çå¹ú") {
             int provinceIncome = provinces[i]->getIncome();
             // Apply technology bonuses
             for (size_t j = 0; j < technologies.size(); j++) {
@@ -257,7 +257,7 @@ void Game::collectIncome() {
         }
     }
     treasury += income;
-    std::cout << "æœ¬å›åˆæ”¶å…¥: " << income << " é“¶ä¸¤\n";
+    std::cout << "±¾»ØºÏÊÕÈë: " << income << " ÒøÁ½\n";
 }
 
 void Game::randomEvent() {
@@ -272,13 +272,13 @@ void Game::randomEvent() {
         
         switch (eventType) {
             case 0:
-                event = GameEvent("å¤ªå¹³å¤©å›½èµ·ä¹‰", 
-                    "å†œæ°‘èµ·ä¹‰çˆ†å‘ï¼Œå¤šä¸ªçœä»½é™·å…¥åŠ¨ä¹±", 
+                event = GameEvent("Ì«Æ½Ìì¹úÆğÒå", 
+                    "Å©ÃñÆğÒå±¬·¢£¬¶à¸öÊ¡·İÏİÈë¶¯ÂÒ", 
                     -20, -300, -500);
                 break;
             case 1:
-                event = GameEvent("ä¹‰å’Œå›¢è¿åŠ¨", 
-                    "æ’å¤–è¿åŠ¨å…´èµ·ï¼Œåˆ—å¼ºä¸æ»¡", 
+                event = GameEvent("ÒåºÍÍÅÔË¶¯", 
+                    "ÅÅÍâÔË¶¯ĞËÆğ£¬ÁĞÇ¿²»Âú", 
                     -15, -200, 0);
                 for (std::map<std::string, int>::iterator it = diplomacy.begin(); 
                      it != diplomacy.end(); ++it) {
@@ -286,25 +286,25 @@ void Game::randomEvent() {
                 }
                 break;
             case 2:
-                event = GameEvent("æ´‹åŠ¡è¿åŠ¨æˆæœ", 
-                    "å·¥å‚å»ºè®¾å–å¾—è¿›å±•", 
+                event = GameEvent("ÑóÎñÔË¶¯³É¹û", 
+                    "¹¤³§½¨ÉèÈ¡µÃ½øÕ¹", 
                     10, 500, 0);
                 break;
             case 3:
-                event = GameEvent("ä¸°æ”¶ä¹‹å¹´", 
-                    "é£è°ƒé›¨é¡ºï¼Œå†œä¸šä¸°æ”¶", 
+                event = GameEvent("·áÊÕÖ®Äê", 
+                    "·çµ÷ÓêË³£¬Å©Òµ·áÊÕ", 
                     15, 400, 0);
                 break;
             case 4:
-                event = GameEvent("å¤©ç¾", 
-                    "æ°´æ—±ç¾å®³å½±å“å¤šä¸ªçœä»½", 
+                event = GameEvent("ÌìÔÖ", 
+                    "Ë®ºµÔÖº¦Ó°Ïì¶à¸öÊ¡·İ", 
                     -10, -250, 0);
                 break;
             case 5: {
-                // ç½¢å·¥äº‹ä»¶
+                // °Õ¹¤ÊÂ¼ş
                 std::vector<int> qingProvinces;
                 for (size_t i = 0; i < provinces.size(); i++) {
-                    if (provinces[i]->getController() == "æ¸…å›½") {
+                    if (provinces[i]->getController() == "Çå¹ú") {
                         qingProvinces.push_back(i);
                     }
                 }
@@ -312,19 +312,19 @@ void Game::randomEvent() {
                     int target = qingProvinces[std::rand() % qingProvinces.size()];
                     uprisingProvinces.push_back(target);
                     provinces[target]->adjustStability(-25);
-                    event = GameEvent("å·¥äººç½¢å·¥", 
-                        provinces[target]->getName() + " å‘ç”Ÿå¤§è§„æ¨¡ç½¢å·¥ï¼éœ€è¦é•‡å‹", 
+                    event = GameEvent("¹¤ÈË°Õ¹¤", 
+                        provinces[target]->getName() + " ·¢Éú´ó¹æÄ£°Õ¹¤£¡ĞèÒªÕòÑ¹", 
                         0, -150, 0);
-                    std::cout << "\n!!! è­¦å‘Šï¼š" << provinces[target]->getName() 
-                              << " (ç¼–å·" << target << ") å‘ç”Ÿç½¢å·¥ï¼Œå¯ä½¿ç”¨èœå•é€‰é¡¹12é•‡å‹ï¼\n";
+                    std::cout << "\n!!! ¾¯¸æ£º" << provinces[target]->getName() 
+                              << " (±àºÅ" << target << ") ·¢Éú°Õ¹¤£¬¿ÉÊ¹ÓÃ²Ëµ¥Ñ¡Ïî12ÕòÑ¹£¡\n";
                 }
                 break;
             }
             case 6: {
-                // å†œæ°‘èµ·ä¹‰
+                // Å©ÃñÆğÒå
                 std::vector<int> qingProvinces;
                 for (size_t i = 0; i < provinces.size(); i++) {
-                    if (provinces[i]->getController() == "æ¸…å›½") {
+                    if (provinces[i]->getController() == "Çå¹ú") {
                         qingProvinces.push_back(i);
                     }
                 }
@@ -335,19 +335,19 @@ void Game::randomEvent() {
                     provinces[target]->setTroops(
                         std::max(0, provinces[target]->getTroops() - 100)
                     );
-                    event = GameEvent("å†œæ°‘èµ·ä¹‰", 
-                        provinces[target]->getName() + " çˆ†å‘å†œæ°‘èµ·ä¹‰ï¼", 
+                    event = GameEvent("Å©ÃñÆğÒå", 
+                        provinces[target]->getName() + " ±¬·¢Å©ÃñÆğÒå£¡", 
                         0, -200, -100);
-                    std::cout << "\n!!! è­¦å‘Šï¼š" << provinces[target]->getName() 
-                              << " (ç¼–å·" << target << ") å‘ç”Ÿèµ·ä¹‰ï¼Œå¯ä½¿ç”¨èœå•é€‰é¡¹12é•‡å‹ï¼\n";
+                    std::cout << "\n!!! ¾¯¸æ£º" << provinces[target]->getName() 
+                              << " (±àºÅ" << target << ") ·¢ÉúÆğÒå£¬¿ÉÊ¹ÓÃ²Ëµ¥Ñ¡Ïî12ÕòÑ¹£¡\n";
                 }
                 break;
             }
             case 7: {
-                // å£«å…µå“—å˜
+                // Ê¿±ø»©±ä
                 std::vector<int> qingProvinces;
                 for (size_t i = 0; i < provinces.size(); i++) {
-                    if (provinces[i]->getController() == "æ¸…å›½" && 
+                    if (provinces[i]->getController() == "Çå¹ú" && 
                         provinces[i]->getTroops() > 50) {
                         qingProvinces.push_back(i);
                     }
@@ -360,19 +360,19 @@ void Game::randomEvent() {
                         provinces[target]->getTroops() - troopLoss
                     );
                     provinces[target]->adjustStability(-20);
-                    event = GameEvent("å£«å…µå“—å˜", 
-                        provinces[target]->getName() + " é©»å†›å“—å˜ï¼", 
+                    event = GameEvent("Ê¿±ø»©±ä", 
+                        provinces[target]->getName() + " ×¤¾ü»©±ä£¡", 
                         0, 0, -troopLoss);
-                    std::cout << "\n!!! è­¦å‘Šï¼š" << provinces[target]->getName() 
-                              << " (ç¼–å·" << target << ") å£«å…µå“—å˜ï¼Œå¯ä½¿ç”¨èœå•é€‰é¡¹12é•‡å‹ï¼\n";
+                    std::cout << "\n!!! ¾¯¸æ£º" << provinces[target]->getName() 
+                              << " (±àºÅ" << target << ") Ê¿±ø»©±ä£¬¿ÉÊ¹ÓÃ²Ëµ¥Ñ¡Ïî12ÕòÑ¹£¡\n";
                 }
                 break;
             }
             case 8: {
-                // å­¦ç”Ÿè¿åŠ¨
+                // Ñ§ÉúÔË¶¯
                 std::vector<int> qingProvinces;
                 for (size_t i = 0; i < provinces.size(); i++) {
-                    if (provinces[i]->getController() == "æ¸…å›½") {
+                    if (provinces[i]->getController() == "Çå¹ú") {
                         qingProvinces.push_back(i);
                     }
                 }
@@ -380,29 +380,29 @@ void Game::randomEvent() {
                     int target = qingProvinces[std::rand() % qingProvinces.size()];
                     uprisingProvinces.push_back(target);
                     provinces[target]->adjustStability(-15);
-                    event = GameEvent("å­¦ç”Ÿè¿åŠ¨", 
-                        provinces[target]->getName() + " å­¦ç”Ÿè¦æ±‚å˜æ³•ï¼", 
+                    event = GameEvent("Ñ§ÉúÔË¶¯", 
+                        provinces[target]->getName() + " Ñ§ÉúÒªÇó±ä·¨£¡", 
                         0, -100, 0);
-                    std::cout << "\n!!! è­¦å‘Šï¼š" << provinces[target]->getName() 
-                              << " (ç¼–å·" << target << ") å­¦ç”Ÿè¿åŠ¨ï¼Œå¯ä½¿ç”¨èœå•é€‰é¡¹12é•‡å‹ï¼\n";
+                    std::cout << "\n!!! ¾¯¸æ£º" << provinces[target]->getName() 
+                              << " (±àºÅ" << target << ") Ñ§ÉúÔË¶¯£¬¿ÉÊ¹ÓÃ²Ëµ¥Ñ¡Ïî12ÕòÑ¹£¡\n";
                 }
                 break;
             }
         }
         
         if (!event.title.empty()) {
-            std::cout << "\nâ•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—\n";
-            std::cout << "â•‘ â˜… äº‹ä»¶: " << std::setw(26) << std::left << event.title << "â•‘\n";
-            std::cout << "â• â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•£\n";
-            std::cout << "â•‘ " << std::setw(35) << std::left << event.description << "â•‘\n";
-            std::cout << "â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\n\n";
+            std::cout << "\n¨X¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨[\n";
+            std::cout << "¨U ¡ï ÊÂ¼ş: " << std::setw(26) << std::left << event.title << "¨U\n";
+            std::cout << "¨d¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨g\n";
+            std::cout << "¨U " << std::setw(35) << std::left << event.description << "¨U\n";
+            std::cout << "¨^¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨a\n\n";
             
             treasury += event.moneyEffect;
         }
         
         if (event.stabilityEffect != 0) {
             for (size_t i = 0; i < provinces.size(); i++) {
-                if (provinces[i]->getController() == "æ¸…å›½") {
+                if (provinces[i]->getController() == "Çå¹ú") {
                     provinces[i]->adjustStability(event.stabilityEffect);
                 }
             }
@@ -412,70 +412,70 @@ void Game::randomEvent() {
 
 void Game::stationTroops(int provinceIndex, int troops) {
     if (provinceIndex >= 0 && provinceIndex < static_cast<int>(provinces.size())) {
-        if (provinces[provinceIndex]->getController() == "æ¸…å›½") {
+        if (provinces[provinceIndex]->getController() == "Çå¹ú") {
             int cost = troops * 2;  // Each troop costs 2 silver
-            std::cout << "\n--- æ´¾é£é©»å†› ---\n";
-            std::cout << "ç›®æ ‡çœä»½: " << provinces[provinceIndex]->getName() << "\n";
-            std::cout << "æ´¾é£å…µåŠ›: " << troops << " äºº\n";
-            std::cout << "éœ€è¦èŠ±è´¹: " << cost << " é“¶ä¸¤\n";
-            std::cout << "å½“å‰å›½åº“: " << treasury << " é“¶ä¸¤\n";
+            std::cout << "\n--- ÅÉÇ²×¤¾ü ---\n";
+            std::cout << "Ä¿±êÊ¡·İ: " << provinces[provinceIndex]->getName() << "\n";
+            std::cout << "ÅÉÇ²±øÁ¦: " << troops << " ÈË\n";
+            std::cout << "ĞèÒª»¨·Ñ: " << cost << " ÒøÁ½\n";
+            std::cout << "µ±Ç°¹ú¿â: " << treasury << " ÒøÁ½\n";
             
             if (treasury >= cost) {
                 provinces[provinceIndex]->addTroops(troops);
                 treasury -= cost;
-                std::cout << "\nâœ“ æˆåŠŸæ´¾é£ï¼\n";
-                std::cout << "å‰©ä½™å›½åº“: " << treasury << " é“¶ä¸¤\n";
+                std::cout << "\n¡Ì ³É¹¦ÅÉÇ²£¡\n";
+                std::cout << "Ê£Óà¹ú¿â: " << treasury << " ÒøÁ½\n";
                 std::cout << provinces[provinceIndex]->getName() 
-                          << " ç°æœ‰é©»å†›: " << provinces[provinceIndex]->getTroops() << " äºº\n";
+                          << " ÏÖÓĞ×¤¾ü: " << provinces[provinceIndex]->getTroops() << " ÈË\n";
             } else {
-                std::cout << "\nâœ— å›½åº“ä¸è¶³ï¼è¿˜éœ€è¦ " << (cost - treasury) << " é“¶ä¸¤\n";
+                std::cout << "\n¡Á ¹ú¿â²»×ã£¡»¹ĞèÒª " << (cost - treasury) << " ÒøÁ½\n";
             }
         } else {
-            std::cout << "è¯¥çœä»½ä¸åœ¨æ¸…å›½æ§åˆ¶ä¹‹ä¸‹ï¼\n";
+            std::cout << "¸ÃÊ¡·İ²»ÔÚÇå¹ú¿ØÖÆÖ®ÏÂ£¡\n";
         }
     } else {
-        std::cout << "æ— æ•ˆçš„çœä»½ç¼–å·ï¼\n";
+        std::cout << "ÎŞĞ§µÄÊ¡·İ±àºÅ£¡\n";
     }
 }
 
 void Game::recruitTroops(int amount) {
     int cost = amount * 2;
-    std::cout << "\n--- æ‹›å‹Ÿå£«å…µ ---\n";
-    std::cout << "æ‹›å‹Ÿæ•°é‡: " << amount << " äºº\n";
-    std::cout << "éœ€è¦èŠ±è´¹: " << cost << " é“¶ä¸¤ (æ¯äºº2é“¶ä¸¤)\n";
-    std::cout << "å½“å‰å›½åº“: " << treasury << " é“¶ä¸¤\n";
+    std::cout << "\n--- ÕĞÄ¼Ê¿±ø ---\n";
+    std::cout << "ÕĞÄ¼ÊıÁ¿: " << amount << " ÈË\n";
+    std::cout << "ĞèÒª»¨·Ñ: " << cost << " ÒøÁ½ (Ã¿ÈË2ÒøÁ½)\n";
+    std::cout << "µ±Ç°¹ú¿â: " << treasury << " ÒøÁ½\n";
     
     if (treasury >= cost) {
         treasury -= cost;
         provinces[0]->addTroops(amount);
-        std::cout << "\nâœ“ åœ¨ç›´éš¶æˆåŠŸæ‹›å‹Ÿ " << amount << " åå£«å…µï¼\n";
-        std::cout << "å‰©ä½™å›½åº“: " << treasury << " é“¶ä¸¤\n";
-        std::cout << "ç›´éš¶é©»å†›: " << provinces[0]->getTroops() << " äºº\n";
+        std::cout << "\n¡Ì ÔÚÖ±Á¥³É¹¦ÕĞÄ¼ " << amount << " ÃûÊ¿±ø£¡\n";
+        std::cout << "Ê£Óà¹ú¿â: " << treasury << " ÒøÁ½\n";
+        std::cout << "Ö±Á¥×¤¾ü: " << provinces[0]->getTroops() << " ÈË\n";
     } else {
-        std::cout << "\nâœ— å›½åº“ä¸è¶³ï¼è¿˜éœ€è¦ " << (cost - treasury) << " é“¶ä¸¤\n";
+        std::cout << "\n¡Á ¹ú¿â²»×ã£¡»¹ĞèÒª " << (cost - treasury) << " ÒøÁ½\n";
     }
 }
 
 void Game::researchTechnology() {
-    std::cout << "\n=== å¯ç ”ç©¶ç§‘æŠ€ ===\n";
+    std::cout << "\n=== ¿ÉÑĞ¾¿¿Æ¼¼ ===\n";
     bool hasAvailable = false;
     for (size_t i = 0; i < technologies.size(); i++) {
         if (!technologies[i].researched) {
             hasAvailable = true;
             std::cout << i << ". " << technologies[i].name 
                       << " - " << technologies[i].description
-                      << " (èŠ±è´¹: " << technologies[i].cost << ")\n";
-            std::cout << "   æ•ˆæœ: å†›äº‹+" << technologies[i].militaryBonus 
-                      << " ç»æµ+" << technologies[i].economicBonus << "\n";
+                      << " (»¨·Ñ: " << technologies[i].cost << ")\n";
+            std::cout << "   Ğ§¹û: ¾üÊÂ+" << technologies[i].militaryBonus 
+                      << " ¾­¼Ã+" << technologies[i].economicBonus << "\n";
         }
     }
     
     if (!hasAvailable) {
-        std::cout << "æ‰€æœ‰ç§‘æŠ€å·²ç ”ç©¶å®Œæ¯•ï¼\n";
+        std::cout << "ËùÓĞ¿Æ¼¼ÒÑÑĞ¾¿Íê±Ï£¡\n";
         return;
     }
     
-    std::cout << "\nè¾“å…¥ç§‘æŠ€ç¼–å· (-1å–æ¶ˆ): ";
+    std::cout << "\nÊäÈë¿Æ¼¼±àºÅ (-1È¡Ïû): ";
     int choice;
     std::cin >> choice;
     
@@ -485,31 +485,31 @@ void Game::researchTechnology() {
             treasury -= technologies[choice].cost;
             technologies[choice].researched = true;
             militaryTech += technologies[choice].militaryBonus;
-            std::cout << "æˆåŠŸç ”ç©¶ " << technologies[choice].name << "ï¼\n";
+            std::cout << "³É¹¦ÑĞ¾¿ " << technologies[choice].name << "£¡\n";
         } else {
-            std::cout << "å›½åº“ä¸è¶³ï¼\n";
+            std::cout << "¹ú¿â²»×ã£¡\n";
         }
     }
 }
 
 void Game::recruitGeneral() {
-    std::cout << "\n=== å¯æ‹›å‹Ÿå°†é¢† ===\n";
+    std::cout << "\n=== ¿ÉÕĞÄ¼½«Áì ===\n";
     bool hasAvailable = false;
     for (size_t i = 0; i < generals.size(); i++) {
         if (!generals[i].isRecruited()) {
             hasAvailable = true;
             std::cout << i << ". " << generals[i].getName()
-                      << " (æˆ˜åŠ›: " << generals[i].getCombatPower()
-                      << ", èŠ±è´¹: " << generals[i].getCost() << ")\n";
+                      << " (Õ½Á¦: " << generals[i].getCombatPower()
+                      << ", »¨·Ñ: " << generals[i].getCost() << ")\n";
         }
     }
     
     if (!hasAvailable) {
-        std::cout << "æ‰€æœ‰å°†é¢†å·²æ‹›å‹Ÿï¼\n";
+        std::cout << "ËùÓĞ½«ÁìÒÑÕĞÄ¼£¡\n";
         return;
     }
     
-    std::cout << "\nè¾“å…¥å°†é¢†ç¼–å· (-1å–æ¶ˆ): ";
+    std::cout << "\nÊäÈë½«Áì±àºÅ (-1È¡Ïû): ";
     int choice;
     std::cin >> choice;
     
@@ -518,30 +518,30 @@ void Game::recruitGeneral() {
         if (treasury >= generals[choice].getCost()) {
             treasury -= generals[choice].getCost();
             generals[choice].recruit();
-            std::cout << "æˆåŠŸæ‹›å‹Ÿ " << generals[choice].getName() << "ï¼\n";
+            std::cout << "³É¹¦ÕĞÄ¼ " << generals[choice].getName() << "£¡\n";
         } else {
-            std::cout << "å›½åº“ä¸è¶³ï¼\n";
+            std::cout << "¹ú¿â²»×ã£¡\n";
         }
     }
 }
 
 void Game::performDiplomacy() {
-    std::cout << "\n=== å¤–äº¤è¡ŒåŠ¨ ===\n";
-    std::cout << "1. è´¿èµ‚åˆ—å¼º (æå‡å…³ç³»)\n";
-    std::cout << "2. ç­¾è®¢æ¡çº¦ (é¿å…æˆ˜äº‰)\n";
-    std::cout << "0. å–æ¶ˆ\n";
-    std::cout << "é€‰æ‹©: ";
+    std::cout << "\n=== Íâ½»ĞĞ¶¯ ===\n";
+    std::cout << "1. »ßÂ¸ÁĞÇ¿ (ÌáÉı¹ØÏµ)\n";
+    std::cout << "2. Ç©¶©ÌõÔ¼ (±ÜÃâÕ½Õù)\n";
+    std::cout << "0. È¡Ïû\n";
+    std::cout << "Ñ¡Ôñ: ";
     
     int choice;
     std::cin >> choice;
     
     if (choice == 1) {
-        std::cout << "é€‰æ‹©å›½å®¶:\n";
+        std::cout << "Ñ¡Ôñ¹ú¼Ò:\n";
         for (size_t i = 0; i < foreignPowers.size(); i++) {
-            std::cout << i << ". " << foreignPowers[i] << " (å…³ç³»: " 
+            std::cout << i << ". " << foreignPowers[i] << " (¹ØÏµ: " 
                       << diplomacy[foreignPowers[i]] << ")\n";
         }
-        std::cout << "è¾“å…¥ç¼–å·: ";
+        std::cout << "ÊäÈë±àºÅ: ";
         int powerIdx;
         std::cin >> powerIdx;
         
@@ -553,9 +553,9 @@ void Game::performDiplomacy() {
                 if (diplomacy[foreignPowers[powerIdx]] > 100) {
                     diplomacy[foreignPowers[powerIdx]] = 100;
                 }
-                std::cout << "æˆåŠŸæ”¹å–„ä¸ " << foreignPowers[powerIdx] << " çš„å…³ç³»ï¼\n";
+                std::cout << "³É¹¦¸ÄÉÆÓë " << foreignPowers[powerIdx] << " µÄ¹ØÏµ£¡\n";
             } else {
-                std::cout << "å›½åº“ä¸è¶³ï¼éœ€è¦ " << cost << " é“¶ä¸¤\n";
+                std::cout << "¹ú¿â²»×ã£¡ĞèÒª " << cost << " ÒøÁ½\n";
             }
         }
     } else if (choice == 2) {
@@ -566,21 +566,21 @@ void Game::performDiplomacy() {
                 pair.second += 10;
                 if (pair.second > 100) pair.second = 100;
             }
-            std::cout << "ä¸åˆ—å¼ºç­¾è®¢å’Œå¹³æ¡çº¦ï¼Œå…³ç³»æ™®éæ”¹å–„ï¼\n";
+            std::cout << "ÓëÁĞÇ¿Ç©¶©ºÍÆ½ÌõÔ¼£¬¹ØÏµÆÕ±é¸ÄÉÆ£¡\n";
         } else {
-            std::cout << "å›½åº“ä¸è¶³ï¼éœ€è¦ " << cost << " é“¶ä¸¤\n";
+            std::cout << "¹ú¿â²»×ã£¡ĞèÒª " << cost << " ÒøÁ½\n";
         }
     }
 }
 
 void Game::conductEspionage() {
-    std::cout << "\n=== è°æŠ¥è¡ŒåŠ¨ ===\n";
-    std::cout << "å½“å‰è°æŠ¥ç­‰çº§: " << spyNetwork << "/5\n";
-    std::cout << "1. å‡çº§è°æŠ¥ç½‘ç»œ (èŠ±è´¹: " << (spyNetwork + 1) * 200 << ")\n";
-    std::cout << "2. åˆºæ¢æ•Œæƒ…\n";
-    std::cout << "3. ç ´åæ•Œæ–¹çœä»½\n";
-    std::cout << "0. å–æ¶ˆ\n";
-    std::cout << "é€‰æ‹©: ";
+    std::cout << "\n=== µı±¨ĞĞ¶¯ ===\n";
+    std::cout << "µ±Ç°µı±¨µÈ¼¶: " << spyNetwork << "/5\n";
+    std::cout << "1. Éı¼¶µı±¨ÍøÂç (»¨·Ñ: " << (spyNetwork + 1) * 200 << ")\n";
+    std::cout << "2. ´ÌÌ½µĞÇé\n";
+    std::cout << "3. ÆÆ»µµĞ·½Ê¡·İ\n";
+    std::cout << "0. È¡Ïû\n";
+    std::cout << "Ñ¡Ôñ: ";
     
     int choice;
     std::cin >> choice;
@@ -591,30 +591,30 @@ void Game::conductEspionage() {
             if (treasury >= cost) {
                 treasury -= cost;
                 spyNetwork++;
-                std::cout << "è°æŠ¥ç½‘ç»œå‡çº§è‡³ç­‰çº§ " << spyNetwork << "ï¼\n";
+                std::cout << "µı±¨ÍøÂçÉı¼¶ÖÁµÈ¼¶ " << spyNetwork << "£¡\n";
             } else {
-                std::cout << "å›½åº“ä¸è¶³ï¼\n";
+                std::cout << "¹ú¿â²»×ã£¡\n";
             }
         } else {
-            std::cout << "è°æŠ¥ç½‘ç»œå·²è¾¾æœ€é«˜ç­‰çº§ï¼\n";
+            std::cout << "µı±¨ÍøÂçÒÑ´ï×î¸ßµÈ¼¶£¡\n";
         }
     } else if (choice == 2) {
         if (spyNetwork > 0) {
-            std::cout << "\n=== æ•Œæ–¹æƒ…æŠ¥ ===\n";
+            std::cout << "\n=== µĞ·½Çé±¨ ===\n";
             for (const auto& province : provinces) {
-                if (province->getController() != "æ¸…å›½") {
+                if (province->getController() != "Çå¹ú") {
                     std::cout << province->getName() << " (" << province->getController() 
-                              << ") - é©»å†›: " << province->getTroops() << "\n";
+                              << ") - ×¤¾ü: " << province->getTroops() << "\n";
                 }
             }
         } else {
-            std::cout << "éœ€è¦å…ˆå»ºç«‹è°æŠ¥ç½‘ç»œï¼\n";
+            std::cout << "ĞèÒªÏÈ½¨Á¢µı±¨ÍøÂç£¡\n";
         }
     } else if (choice == 3) {
         if (spyNetwork >= 2) {
             std::vector<int> enemyProvinces;
             for (size_t i = 0; i < provinces.size(); i++) {
-                if (provinces[i]->getController() != "æ¸…å›½") {
+                if (provinces[i]->getController() != "Çå¹ú") {
                     enemyProvinces.push_back(i);
                 }
             }
@@ -625,45 +625,45 @@ void Game::conductEspionage() {
                 provinces[target]->setTroops(
                     std::max(0, provinces[target]->getTroops() - damage)
                 );
-                std::cout << "æˆåŠŸç ´å " << provinces[target]->getName() 
-                          << "ï¼Œå‰Šå¼±æ•Œå†› " << damage << " äººï¼\n";
+                std::cout << "³É¹¦ÆÆ»µ " << provinces[target]->getName() 
+                          << "£¬Ï÷ÈõµĞ¾ü " << damage << " ÈË£¡\n";
             } else {
-                std::cout << "æ²¡æœ‰å¯ç ´åçš„æ•Œæ–¹çœä»½ï¼\n";
+                std::cout << "Ã»ÓĞ¿ÉÆÆ»µµÄµĞ·½Ê¡·İ£¡\n";
             }
         } else {
-            std::cout << "è°æŠ¥ç­‰çº§ä¸è¶³ï¼éœ€è¦ç­‰çº§2ä»¥ä¸Š\n";
+            std::cout << "µı±¨µÈ¼¶²»×ã£¡ĞèÒªµÈ¼¶2ÒÔÉÏ\n";
         }
     }
 }
 
 void Game::buildFortification(int provinceIndex) {
     if (provinceIndex >= 0 && provinceIndex < static_cast<int>(provinces.size())) {
-        if (provinces[provinceIndex]->getController() == "æ¸…å›½") {
+        if (provinces[provinceIndex]->getController() == "Çå¹ú") {
             int cost = (provinces[provinceIndex]->getFortificationLevel() + 1) * 150;
             if (treasury >= cost && provinces[provinceIndex]->getFortificationLevel() < 5) {
                 treasury -= cost;
                 provinces[provinceIndex]->upgradeFortification();
-                std::cout << "åœ¨ " << provinces[provinceIndex]->getName() 
-                          << " å»ºé€ é˜²å¾¡å·¥äº‹ï¼å½“å‰ç­‰çº§: " 
+                std::cout << "ÔÚ " << provinces[provinceIndex]->getName() 
+                          << " ½¨Ôì·ÀÓù¹¤ÊÂ£¡µ±Ç°µÈ¼¶: " 
                           << provinces[provinceIndex]->getFortificationLevel() << "\n";
             } else if (provinces[provinceIndex]->getFortificationLevel() >= 5) {
-                std::cout << "è¯¥çœä»½é˜²å¾¡å·¥äº‹å·²è¾¾æœ€é«˜ç­‰çº§ï¼\n";
+                std::cout << "¸ÃÊ¡·İ·ÀÓù¹¤ÊÂÒÑ´ï×î¸ßµÈ¼¶£¡\n";
             } else {
-                std::cout << "å›½åº“ä¸è¶³ï¼éœ€è¦ " << cost << " é“¶ä¸¤\n";
+                std::cout << "¹ú¿â²»×ã£¡ĞèÒª " << cost << " ÒøÁ½\n";
             }
         } else {
-            std::cout << "è¯¥çœä»½ä¸åœ¨æ¸…å›½æ§åˆ¶ä¹‹ä¸‹ï¼\n";
+            std::cout << "¸ÃÊ¡·İ²»ÔÚÇå¹ú¿ØÖÆÖ®ÏÂ£¡\n";
         }
     } else {
-        std::cout << "æ— æ•ˆçš„çœä»½ç¼–å·ï¼\n";
+        std::cout << "ÎŞĞ§µÄÊ¡·İ±àºÅ£¡\n";
     }
 }
 
 void Game::enactReforms() {
-    std::cout << "\n=== è¿›è¡Œæ”¹é© ===\n";
-    std::cout << "å½“å‰æ”¹é©è¿›åº¦: " << reformLevel << "/100\n";
-    std::cout << "æ¨è¿›æ”¹é©éœ€è¦ 400 é“¶ä¸¤\n";
-    std::cout << "ç¡®è®¤æ¨è¿›æ”¹é©? (1=æ˜¯, 0=å¦): ";
+    std::cout << "\n=== ½øĞĞ¸Ä¸ï ===\n";
+    std::cout << "µ±Ç°¸Ä¸ï½ø¶È: " << reformLevel << "/100\n";
+    std::cout << "ÍÆ½ø¸Ä¸ïĞèÒª 400 ÒøÁ½\n";
+    std::cout << "È·ÈÏÍÆ½ø¸Ä¸ï? (1=ÊÇ, 0=·ñ): ";
     
     int confirm;
     std::cin >> confirm;
@@ -677,104 +677,104 @@ void Game::enactReforms() {
             
             // Improve stability in all Qing provinces
             for (auto& province : provinces) {
-                if (province->getController() == "æ¸…å›½") {
+                if (province->getController() == "Çå¹ú") {
                     province->adjustStability(5);
                 }
             }
             
-            std::cout << "æ”¹é©æˆåŠŸæ¨è¿›ï¼æ”¹é©è¿›åº¦: " << reformLevel << "/100\n";
-            std::cout << "å…¨å›½ç¨³å®šåº¦æå‡ï¼Œå†›äº‹ç§‘æŠ€æå‡ï¼\n";
-            std::cout << "ã€èŠ±è´¹ï¼š400é“¶ä¸¤ã€‘\n";
+            std::cout << "¸Ä¸ï³É¹¦ÍÆ½ø£¡¸Ä¸ï½ø¶È: " << reformLevel << "/100\n";
+            std::cout << "È«¹úÎÈ¶¨¶ÈÌáÉı£¬¾üÊÂ¿Æ¼¼ÌáÉı£¡\n";
+            std::cout << "¡¾»¨·Ñ£º400ÒøÁ½¡¿\n";
         } else if (reformLevel >= 100) {
-            std::cout << "æ”¹é©å·²å®Œæˆï¼\n";
+            std::cout << "¸Ä¸ïÒÑÍê³É£¡\n";
         } else {
-            std::cout << "å›½åº“ä¸è¶³ï¼éœ€è¦ 400 é“¶ä¸¤ï¼Œå½“å‰: " << treasury << " é“¶ä¸¤\n";
+            std::cout << "¹ú¿â²»×ã£¡ĞèÒª 400 ÒøÁ½£¬µ±Ç°: " << treasury << " ÒøÁ½\n";
         }
     }
 }
 
 void Game::attackProvince() {
-    std::cout << "\n=== è¿›æ”»æ•Œæ–¹çœä»½ ===\n";
+    std::cout << "\n=== ½ø¹¥µĞ·½Ê¡·İ ===\n";
     
-    // æ”¶é›†æ‰€æœ‰æ•Œå¯¹å›½å®¶
+    // ÊÕ¼¯ËùÓĞµĞ¶Ô¹ú¼Ò
     std::map<std::string, std::vector<int>> countriesMap;
     for (size_t i = 0; i < provinces.size(); i++) {
-        if (provinces[i]->getController() != "æ¸…å›½") {
+        if (provinces[i]->getController() != "Çå¹ú") {
             countriesMap[provinces[i]->getController()].push_back(i);
         }
     }
     
     if (countriesMap.empty()) {
-        std::cout << "æ²¡æœ‰æ•Œæ–¹çœä»½å¯ä»¥è¿›æ”»ï¼\n";
+        std::cout << "Ã»ÓĞµĞ·½Ê¡·İ¿ÉÒÔ½ø¹¥£¡\n";
         return;
     }
     
-    // æ˜¾ç¤ºæ‰€æœ‰æ•Œå¯¹å›½å®¶
-    std::cout << "\nå¯è¿›æ”»çš„å›½å®¶ï¼š\n";
+    // ÏÔÊ¾ËùÓĞµĞ¶Ô¹ú¼Ò
+    std::cout << "\n¿É½ø¹¥µÄ¹ú¼Ò£º\n";
     std::vector<std::string> countryList;
     int idx = 0;
     for (std::map<std::string, std::vector<int>>::iterator it = countriesMap.begin(); 
          it != countriesMap.end(); ++it) {
         std::cout << idx << ". " << it->first 
-                  << " (" << it->second.size() << "ä¸ªçœä»½)\n";
+                  << " (" << it->second.size() << "¸öÊ¡·İ)\n";
         countryList.push_back(it->first);
         idx++;
     }
     
-    std::cout << "\né€‰æ‹©è¦è¿›æ”»çš„å›½å®¶ç¼–å· (-1å–æ¶ˆ): ";
+    std::cout << "\nÑ¡ÔñÒª½ø¹¥µÄ¹ú¼Ò±àºÅ (-1È¡Ïû): ";
     int countryChoice;
     std::cin >> countryChoice;
     
     if (countryChoice == -1) return;
     
     if (countryChoice < 0 || countryChoice >= static_cast<int>(countryList.size())) {
-        std::cout << "æ— æ•ˆçš„é€‰æ‹©ï¼\n";
+        std::cout << "ÎŞĞ§µÄÑ¡Ôñ£¡\n";
         return;
     }
     
     std::string targetCountry = countryList[countryChoice];
     std::vector<int>& targetProvinces = countriesMap[targetCountry];
     
-    // æ˜¾ç¤ºè¯¥å›½å®¶çš„æ‰€æœ‰çœä»½
-    std::cout << "\n" << targetCountry << " çš„çœä»½ï¼š\n";
+    // ÏÔÊ¾¸Ã¹ú¼ÒµÄËùÓĞÊ¡·İ
+    std::cout << "\n" << targetCountry << " µÄÊ¡·İ£º\n";
     for (size_t i = 0; i < targetProvinces.size(); i++) {
         int provIdx = targetProvinces[i];
         std::cout << i << ". " << provinces[provIdx]->getName() 
-                  << " (é©»å†›: " << provinces[provIdx]->getTroops() << ")\n";
+                  << " (×¤¾ü: " << provinces[provIdx]->getTroops() << ")\n";
     }
     
-    std::cout << "\né€‰æ‹©è¦è¿›æ”»çš„çœä»½ç¼–å· (-1å–æ¶ˆ): ";
+    std::cout << "\nÑ¡ÔñÒª½ø¹¥µÄÊ¡·İ±àºÅ (-1È¡Ïû): ";
     int provinceChoice;
     std::cin >> provinceChoice;
     
     if (provinceChoice == -1) return;
     
     if (provinceChoice < 0 || provinceChoice >= static_cast<int>(targetProvinces.size())) {
-        std::cout << "æ— æ•ˆçš„é€‰æ‹©ï¼\n";
+        std::cout << "ÎŞĞ§µÄÑ¡Ôñ£¡\n";
         return;
     }
     
     int targetIndex = targetProvinces[provinceChoice];
     
-    std::cout << "è¯·è¾“å…¥æ´¾é£è¿›æ”»çš„å…µåŠ›: ";
+    std::cout << "ÇëÊäÈëÅÉÇ²½ø¹¥µÄ±øÁ¦: ";
     int attackForce;
     std::cin >> attackForce;
     
     if (attackForce <= 0) {
-        std::cout << "å…µåŠ›å¿…é¡»å¤§äº0ï¼\n";
+        std::cout << "±øÁ¦±ØĞë´óÓÚ0£¡\n";
         return;
     }
     
     // Check if we have enough troops (from all our provinces)
     int totalTroops = 0;
     for (size_t i = 0; i < provinces.size(); i++) {
-        if (provinces[i]->getController() == "æ¸…å›½") {
+        if (provinces[i]->getController() == "Çå¹ú") {
             totalTroops += provinces[i]->getTroops();
         }
     }
     
     if (attackForce > totalTroops) {
-        std::cout << "å…µåŠ›ä¸è¶³ï¼å½“å‰æ€»å…µåŠ›: " << totalTroops << "\n";
+        std::cout << "±øÁ¦²»×ã£¡µ±Ç°×Ü±øÁ¦: " << totalTroops << "\n";
         return;
     }
     
@@ -792,40 +792,40 @@ void Game::attackProvince() {
     int defense = provinces[targetIndex]->getTroops() + 
                   provinces[targetIndex]->getFortificationLevel() * 20;
     
-    std::cout << "\n--- æˆ˜æ–— ---\n";
-    std::cout << "æˆ‘æ–¹æ”»å‡»åŠ›: " << attackPower << " (å…µåŠ›: " << attackForce 
-              << " + ç§‘æŠ€: " << militaryTech << ")\n";
-    std::cout << "æ•Œæ–¹é˜²å¾¡åŠ›: " << defense << " (é©»å†›: " << provinces[targetIndex]->getTroops()
-              << " + å·¥äº‹: " << provinces[targetIndex]->getFortificationLevel() * 20 << ")\n\n";
+    std::cout << "\n--- Õ½¶· ---\n";
+    std::cout << "ÎÒ·½¹¥»÷Á¦: " << attackPower << " (±øÁ¦: " << attackForce 
+              << " + ¿Æ¼¼: " << militaryTech << ")\n";
+    std::cout << "µĞ·½·ÀÓùÁ¦: " << defense << " (×¤¾ü: " << provinces[targetIndex]->getTroops()
+              << " + ¹¤ÊÂ: " << provinces[targetIndex]->getFortificationLevel() * 20 << ")\n\n";
     
     if (attackPower > defense) {
-        std::cout << "*** èƒœåˆ©ï¼æˆåŠŸæ”»å  " << provinces[targetIndex]->getName() << "ï¼***\n";
+        std::cout << "*** Ê¤Àû£¡³É¹¦¹¥Õ¼ " << provinces[targetIndex]->getName() << "£¡***\n";
         std::string oldController = provinces[targetIndex]->getController();
-        provinces[targetIndex]->setController("æ¸…å›½");
+        provinces[targetIndex]->setController("Çå¹ú");
         int casualties = defense / 2;
         provinces[targetIndex]->setTroops(attackForce - casualties);
-        std::cout << "æˆ‘å†›ä¼¤äº¡: " << casualties << " äºº\n";
-        std::cout << "å é¢†åé©»å†›: " << provinces[targetIndex]->getTroops() << " äºº\n";
+        std::cout << "ÎÒ¾üÉËÍö: " << casualties << " ÈË\n";
+        std::cout << "Õ¼Áìºó×¤¾ü: " << provinces[targetIndex]->getTroops() << " ÈË\n";
         
         // Worsen relations with the defeated power
         if (diplomacy.find(oldController) != diplomacy.end()) {
             diplomacy[oldController] -= 20;
         }
     } else {
-        std::cout << "*** æˆ˜è´¥ï¼è¿›æ”»å¤±è´¥ ***\n";
+        std::cout << "*** Õ½°Ü£¡½ø¹¥Ê§°Ü ***\n";
         int casualties = attackForce / 2;
-        std::cout << "æˆ‘å†›ä¼¤äº¡: " << casualties << " äºº\n";
+        std::cout << "ÎÒ¾üÉËÍö: " << casualties << " ÈË\n";
         provinces[targetIndex]->setTroops(defense - attackPower / 2);
     }
 }
 
 void Game::suppressUprising(int provinceIndex) {
     if (provinceIndex < 0 || provinceIndex >= static_cast<int>(provinces.size())) {
-        std::cout << "æ— æ•ˆçš„çœä»½ç¼–å·ï¼\n";
+        std::cout << "ÎŞĞ§µÄÊ¡·İ±àºÅ£¡\n";
         return;
     }
     
-    // æ£€æŸ¥è¯¥çœä»½æ˜¯å¦æœ‰èµ·ä¹‰
+    // ¼ì²é¸ÃÊ¡·İÊÇ·ñÓĞÆğÒå
     bool hasUprising = false;
     for (size_t i = 0; i < uprisingProvinces.size(); i++) {
         if (uprisingProvinces[i] == provinceIndex) {
@@ -836,21 +836,21 @@ void Game::suppressUprising(int provinceIndex) {
     }
     
     if (!hasUprising) {
-        std::cout << "è¯¥çœä»½æ²¡æœ‰èµ·ä¹‰ï¼\n";
+        std::cout << "¸ÃÊ¡·İÃ»ÓĞÆğÒå£¡\n";
         return;
     }
     
-    if (provinces[provinceIndex]->getController() != "æ¸…å›½") {
-        std::cout << "è¯¥çœä»½ä¸åœ¨æ¸…å›½æ§åˆ¶ä¹‹ä¸‹ï¼\n";
+    if (provinces[provinceIndex]->getController() != "Çå¹ú") {
+        std::cout << "¸ÃÊ¡·İ²»ÔÚÇå¹ú¿ØÖÆÖ®ÏÂ£¡\n";
         return;
     }
     
     int cost = 200;
-    std::cout << "\n--- é•‡å‹èµ·ä¹‰ ---\n";
-    std::cout << "çœä»½: " << provinces[provinceIndex]->getName() << "\n";
-    std::cout << "é•‡å‹è´¹ç”¨: " << cost << " é“¶ä¸¤\n";
-    std::cout << "å½“å‰å›½åº“: " << treasury << " é“¶ä¸¤\n";
-    std::cout << "ç¡®è®¤é•‡å‹? (1=æ˜¯, 0=å¦): ";
+    std::cout << "\n--- ÕòÑ¹ÆğÒå ---\n";
+    std::cout << "Ê¡·İ: " << provinces[provinceIndex]->getName() << "\n";
+    std::cout << "ÕòÑ¹·ÑÓÃ: " << cost << " ÒøÁ½\n";
+    std::cout << "µ±Ç°¹ú¿â: " << treasury << " ÒøÁ½\n";
+    std::cout << "È·ÈÏÕòÑ¹? (1=ÊÇ, 0=·ñ): ";
     
     int confirm;
     std::cin >> confirm;
@@ -862,11 +862,11 @@ void Game::suppressUprising(int provinceIndex) {
             provinces[provinceIndex]->setTroops(
                 provinces[provinceIndex]->getTroops() + 50
             );
-            std::cout << "\nâœ“ æˆåŠŸé•‡å‹ " << provinces[provinceIndex]->getName() << " çš„èµ·ä¹‰ï¼\n";
-            std::cout << "ç¨³å®šåº¦æå‡30ï¼Œå¢åŠ 50é©»å†›\n";
-            std::cout << "å‰©ä½™å›½åº“: " << treasury << " é“¶ä¸¤\n";
+            std::cout << "\n¡Ì ³É¹¦ÕòÑ¹ " << provinces[provinceIndex]->getName() << " µÄÆğÒå£¡\n";
+            std::cout << "ÎÈ¶¨¶ÈÌáÉı30£¬Ôö¼Ó50×¤¾ü\n";
+            std::cout << "Ê£Óà¹ú¿â: " << treasury << " ÒøÁ½\n";
         } else {
-            std::cout << "\nâœ— å›½åº“ä¸è¶³ï¼è¿˜éœ€è¦ " << (cost - treasury) << " é“¶ä¸¤\n";
+            std::cout << "\n¡Á ¹ú¿â²»×ã£¡»¹ĞèÒª " << (cost - treasury) << " ÒøÁ½\n";
         }
     }
 }
@@ -874,7 +874,7 @@ void Game::suppressUprising(int provinceIndex) {
 void Game::saveGame(const std::string& filename) const {
     std::ofstream file(filename.c_str());
     if (!file.is_open()) {
-        std::cout << "æ— æ³•åˆ›å»ºå­˜æ¡£æ–‡ä»¶ï¼\n";
+        std::cout << "ÎŞ·¨´´½¨´æµµÎÄ¼ş£¡\n";
         return;
     }
     
@@ -918,7 +918,7 @@ void Game::saveGame(const std::string& filename) const {
     }
     
     file.close();
-    std::cout << "æ¸¸æˆå·²ä¿å­˜åˆ°: " << filename << "\n";
+    std::cout << "ÓÎÏ·ÒÑ±£´æµ½: " << filename << "\n";
 }
 
 bool Game::loadGame(const std::string& filename) {
@@ -996,7 +996,7 @@ bool Game::loadGame(const std::string& filename) {
     
     // If game has ended, show report and exit
     if (gameEnded) {
-        std::cout << "\nè¿™æ˜¯ä¸€ä¸ªå·²ç»“æŸçš„å­˜æ¡£ï¼\n";
+        std::cout << "\nÕâÊÇÒ»¸öÒÑ½áÊøµÄ´æµµ£¡\n";
         displayFinalReport();
         return true;
     }
@@ -1006,29 +1006,29 @@ bool Game::loadGame(const std::string& filename) {
 
 void Game::displayFinalReport() const {
     std::cout << "\n";
-    std::cout << "â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—\n";
-    std::cout << "â•‘                                            â•‘\n";
-    std::cout << "â•‘         æ¸¸æˆç»“æŸ - æœ€ç»ˆæˆæœæŠ¥å‘Š           â•‘\n";
-    std::cout << "â•‘                                            â•‘\n";
-    std::cout << "â• â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•£\n";
-    std::cout << "â•‘                                            â•‘\n";
+    std::cout << "¨X¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨[\n";
+    std::cout << "¨U                                            ¨U\n";
+    std::cout << "¨U         ÓÎÏ·½áÊø - ×îÖÕ³É¹û±¨¸æ           ¨U\n";
+    std::cout << "¨U                                            ¨U\n";
+    std::cout << "¨d¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨g\n";
+    std::cout << "¨U                                            ¨U\n";
     
     int qingProvinces = getQingProvinceCount();
     int totalProvinces = provinces.size();
     double controlPercent = (qingProvinces * 100.0) / totalProvinces;
     
-    std::cout << "â•‘ æ¸¸æˆå›åˆ: " << std::setw(28) << std::left << turn << "â•‘\n";
-    std::cout << "â•‘ æ§åˆ¶çœä»½: " << qingProvinces << "/" << totalProvinces 
+    std::cout << "¨U ÓÎÏ·»ØºÏ: " << std::setw(28) << std::left << turn << "¨U\n";
+    std::cout << "¨U ¿ØÖÆÊ¡·İ: " << qingProvinces << "/" << totalProvinces 
               << " (" << std::fixed << std::setprecision(1) << controlPercent << "%)";
     for (int i = 0; i < 20; i++) std::cout << " ";
-    std::cout << "â•‘\n";
-    std::cout << "â•‘ å›½åº“ä½™é¢: " << std::setw(28) << std::left << treasury << "â•‘\n";
-    std::cout << "â•‘ æ”¹é©è¿›åº¦: " << std::setw(28) << std::left << reformLevel << "â•‘\n";
-    std::cout << "â•‘ å†›äº‹ç§‘æŠ€: " << std::setw(28) << std::left << militaryTech << "â•‘\n";
-    std::cout << "â•‘                                            â•‘\n";
-    std::cout << "â• â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•£\n";
-    std::cout << "â•‘ çœä»½æ§åˆ¶è¯¦æƒ…:                             â•‘\n";
-    std::cout << "â• â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•£\n";
+    std::cout << "¨U\n";
+    std::cout << "¨U ¹ú¿âÓà¶î: " << std::setw(28) << std::left << treasury << "¨U\n";
+    std::cout << "¨U ¸Ä¸ï½ø¶È: " << std::setw(28) << std::left << reformLevel << "¨U\n";
+    std::cout << "¨U ¾üÊÂ¿Æ¼¼: " << std::setw(28) << std::left << militaryTech << "¨U\n";
+    std::cout << "¨U                                            ¨U\n";
+    std::cout << "¨d¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨g\n";
+    std::cout << "¨U Ê¡·İ¿ØÖÆÏêÇé:                             ¨U\n";
+    std::cout << "¨d¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨g\n";
     
     // Count provinces by controller
     std::map<std::string, int> controlCount;
@@ -1037,32 +1037,32 @@ void Game::displayFinalReport() const {
     }
     
     for (const auto& pair : controlCount) {
-        std::cout << "â•‘ " << std::setw(12) << std::left << pair.first 
-                  << ": " << std::setw(27) << std::left << pair.second + "ä¸ªçœä»½" << "â•‘\n";
+        std::cout << "¨U " << std::setw(12) << std::left << pair.first 
+                  << ": " << std::setw(27) << std::left << pair.second + "¸öÊ¡·İ" << "¨U\n";
     }
     
-    std::cout << "â•‘                                            â•‘\n";
-    std::cout << "â• â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•£\n";
+    std::cout << "¨U                                            ¨U\n";
+    std::cout << "¨d¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨g\n";
     
     // Evaluation
     if (controlPercent >= 90) {
-        std::cout << "â•‘ è¯„ä»·: å¤§æ¸…ä¸­å…´ï¼ŒåŠŸåœ¨åƒç§‹ï¼                â•‘\n";
+        std::cout << "¨U ÆÀ¼Û: ´óÇåÖĞĞË£¬¹¦ÔÚÇ§Çï£¡                ¨U\n";
     } else if (controlPercent >= 70) {
-        std::cout << "â•‘ è¯„ä»·: æˆåŠŸå®ˆåœŸï¼Œä¿ä½åŸºä¸š                  â•‘\n";
+        std::cout << "¨U ÆÀ¼Û: ³É¹¦ÊØÍÁ£¬±£×¡»ùÒµ                  ¨U\n";
     } else if (controlPercent >= 50) {
-        std::cout << "â•‘ è¯„ä»·: å‹‰å¼ºç»´æŒï¼Œå‰è·¯åå·                  â•‘\n";
+        std::cout << "¨U ÆÀ¼Û: ÃãÇ¿Î¬³Ö£¬Ç°Â·¿²¿À                  ¨U\n";
     } else if (controlPercent >= 30) {
-        std::cout << "â•‘ è¯„ä»·: æ±Ÿæ²³æ—¥ä¸‹ï¼Œå›½åŠ¿å±æ€¥                  â•‘\n";
+        std::cout << "¨U ÆÀ¼Û: ½­ºÓÈÕÏÂ£¬¹úÊÆÎ£¼±                  ¨U\n";
     } else {
-        std::cout << "â•‘ è¯„ä»·: å¤§å¦å°†å€¾ï¼Œå›å¤©ä¹æœ¯                  â•‘\n";
+        std::cout << "¨U ÆÀ¼Û: ´óÏÃ½«Çã£¬»ØÌì·¦Êõ                  ¨U\n";
     }
     
-    std::cout << "â•‘                                            â•‘\n";
-    std::cout << "â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\n\n";
+    std::cout << "¨U                                            ¨U\n";
+    std::cout << "¨^¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨a\n\n";
 }
 
 void Game::foreignPowersAction() {
-    std::cout << "\n--- åˆ—å¼ºè¡ŒåŠ¨ ---\n";
+    std::cout << "\n--- ÁĞÇ¿ĞĞ¶¯ ---\n";
     
     for (const auto& power : foreignPowers) {
         // Diplomatic status affects aggressiveness
@@ -1071,7 +1071,7 @@ void Game::foreignPowersAction() {
         
         // Better relations reduce attack chance
         if (relationship > 0 && actionChance < relationship / 2) {
-            std::cout << power << " ä¿æŒå’Œå¹³æ€åº¦\n";
+            std::cout << power << " ±£³ÖºÍÆ½Ì¬¶È\n";
             continue;
         }
         
@@ -1081,7 +1081,7 @@ void Game::foreignPowersAction() {
             // Try to attack a Qing province
             std::vector<int> qingProvinces;
             for (size_t i = 0; i < provinces.size(); i++) {
-                if (provinces[i]->getController() == "æ¸…å›½") {
+                if (provinces[i]->getController() == "Çå¹ú") {
                     qingProvinces.push_back(i);
                 }
             }
@@ -1103,14 +1103,14 @@ void Game::foreignPowersAction() {
                 defense += militaryTech;  // Add tech bonus
                 
                 if (attackPower > defense) {
-                    std::cout << power << " æ”»å äº† " << provinces[targetIndex]->getName() << "ï¼\n";
+                    std::cout << power << " ¹¥Õ¼ÁË " << provinces[targetIndex]->getName() << "£¡\n";
                     provinces[targetIndex]->setController(power);
                     provinces[targetIndex]->setTroops(attackPower - defense);
                     provinces[targetIndex]->setStability(50);
                     diplomacy[power] -= 10;  // Worsen relations
                 } else {
-                    std::cout << power << " è¿›æ”» " << provinces[targetIndex]->getName() 
-                              << " å¤±è´¥\n";
+                    std::cout << power << " ½ø¹¥ " << provinces[targetIndex]->getName() 
+                              << " Ê§°Ü\n";
                     provinces[targetIndex]->setTroops(defense - attackPower / 2);
                 }
             }
@@ -1127,8 +1127,8 @@ void Game::foreignPowersAction() {
                 int targetIndex = controlledProvinces[std::rand() % controlledProvinces.size()];
                 int reinforcement = 30 + std::rand() % 50;
                 provinces[targetIndex]->addTroops(reinforcement);
-                std::cout << power << " åœ¨ " << provinces[targetIndex]->getName() 
-                          << " å¢å…µ " << reinforcement << "\n";
+                std::cout << power << " ÔÚ " << provinces[targetIndex]->getName() 
+                          << " Ôö±ø " << reinforcement << "\n";
             }
         }
         // else: diplomatic action or nothing
@@ -1139,7 +1139,7 @@ void Game::foreignPowersAction() {
 int Game::getQingProvinceCount() const {
     int count = 0;
     for (const auto& province : provinces) {
-        if (province->getController() == "æ¸…å›½") {
+        if (province->getController() == "Çå¹ú") {
             count++;
         }
     }
@@ -1147,45 +1147,45 @@ int Game::getQingProvinceCount() const {
 }
 
 void Game::checkGameOver() {
-    // ç§»é™¤è‡ªåŠ¨èƒœè´Ÿåˆ¤å®šï¼Œæ”¹ä¸ºæç¤º
+    // ÒÆ³ı×Ô¶¯Ê¤¸ºÅĞ¶¨£¬¸ÄÎªÌáÊ¾
     int qingProvinces = getQingProvinceCount();
     
     if (qingProvinces < 8) {
-        std::cout << "\n!!! è­¦å‘Šï¼šæ¸…å›½ä»…å‰© " << qingProvinces << " ä¸ªçœä»½ï¼Œå½¢åŠ¿å±æ€¥ï¼\n";
+        std::cout << "\n!!! ¾¯¸æ£ºÇå¹ú½öÊ£ " << qingProvinces << " ¸öÊ¡·İ£¬ĞÎÊÆÎ£¼±£¡\n";
     } else if (qingProvinces == static_cast<int>(provinces.size())) {
-        std::cout << "\n*** æ­å–œï¼šæ¸…å›½å·²æ”¶å¤æ‰€æœ‰å¤±åœ°ï¼***\n";
+        std::cout << "\n*** ¹§Ï²£ºÇå¹úÒÑÊÕ¸´ËùÓĞÊ§µØ£¡***\n";
     }
 }
 
 void Game::run() {
     std::cout << "========================================\n";
-    std::cout << "     æ¬¢è¿æ¥åˆ°å¤§æ¸…æ¨¡æ‹Ÿå™¨ï¼\n";
+    std::cout << "     »¶Ó­À´µ½´óÇåÄ£ÄâÆ÷£¡\n";
     std::cout << "========================================\n";
     
-    // è®©ç©å®¶é€‰æ‹©å­˜æ¡£æ–‡ä»¶å
-    std::cout << "\nè¯·è¾“å…¥å­˜æ¡£æ–‡ä»¶å (ä¸å«æ‰©å±•åï¼Œå¦‚: save1): ";
+    // ÈÃÍæ¼ÒÑ¡Ôñ´æµµÎÄ¼şÃû
+    std::cout << "\nÇëÊäÈë´æµµÎÄ¼şÃû (²»º¬À©Õ¹Ãû£¬Èç: save1): ";
     std::cin >> currentSaveFile;
     currentSaveFile += ".dat";
     
-    std::cout << "\næ£€æŸ¥å­˜æ¡£: " << currentSaveFile << "\n";
+    std::cout << "\n¼ì²é´æµµ: " << currentSaveFile << "\n";
     
-    // å°è¯•åŠ è½½å­˜æ¡£
+    // ³¢ÊÔ¼ÓÔØ´æµµ
     if (loadGame(currentSaveFile)) {
         if (gameEnded) {
-            // å·²ç»“æŸçš„å­˜æ¡£ï¼Œæ˜¾ç¤ºæŠ¥å‘Šåé€€å‡º
-            std::cout << "\næŒ‰ä»»æ„é”®ç»§ç»­...\n";
+            // ÒÑ½áÊøµÄ´æµµ£¬ÏÔÊ¾±¨¸æºóÍË³ö
+            std::cout << "\n°´ÈÎÒâ¼ü¼ÌĞø...\n";
             std::cin.ignore();
             std::cin.get();
             return;
         }
-        std::cout << "âœ“ æ‰¾åˆ°å­˜æ¡£ï¼å­˜æ¡£å·²åŠ è½½ï¼Œç»§ç»­æ¸¸æˆ...\n";
+        std::cout << "¡Ì ÕÒµ½´æµµ£¡´æµµÒÑ¼ÓÔØ£¬¼ÌĞøÓÎÏ·...\n";
     } else {
-        std::cout << "æœªæ‰¾åˆ°å­˜æ¡£æ–‡ä»¶ï¼Œå°†åˆ›å»ºæ–°å­˜æ¡£ã€‚\n";
-        std::cout << "æ¸¸æˆæ—¶å¯éšæ—¶ä¿å­˜åˆ°: " << currentSaveFile << "\n";
+        std::cout << "Î´ÕÒµ½´æµµÎÄ¼ş£¬½«´´½¨ĞÂ´æµµ¡£\n";
+        std::cout << "ÓÎÏ·Ê±¿ÉËæÊ±±£´æµ½: " << currentSaveFile << "\n";
     }
     
-    std::cout << "\nç›®æ ‡: å°½å¯èƒ½æ‰©å¤§æ¸…å›½é¢†åœŸï¼\n";
-    std::cout << "æç¤º: æ‚¨å¯ä»¥éšæ—¶ä¿å­˜æ¸¸æˆæˆ–é€‰æ‹©é€€å‡ºå¹¶æŸ¥çœ‹æœ€ç»ˆæˆæœ\n";
+    std::cout << "\nÄ¿±ê: ¾¡¿ÉÄÜÀ©´óÇå¹úÁìÍÁ£¡\n";
+    std::cout << "ÌáÊ¾: Äú¿ÉÒÔËæÊ±±£´æÓÎÏ·»òÑ¡ÔñÍË³ö²¢²é¿´×îÖÕ³É¹û\n";
     std::cout << "========================================\n\n";
     
     while (!gameOver) {
@@ -1201,30 +1201,30 @@ void Game::run() {
         
         bool endTurn = false;
         while (!endTurn && !gameOver) {
-            std::cout << "\nâ•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—\n";
-            std::cout << "â•‘        è¯·é€‰æ‹©è¡ŒåŠ¨:                 â•‘\n";
-            std::cout << "â• â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•£\n";
-            std::cout << "â•‘ 1. æ´¾é£é©»å†›                        â•‘\n";
-            std::cout << "â•‘ 2. æ‹›å‹Ÿå£«å…µ                        â•‘\n";
-            std::cout << "â•‘ 3. ç ”ç©¶ç§‘æŠ€                        â•‘\n";
-            std::cout << "â•‘ 4. æ‹›å‹Ÿå°†é¢†                        â•‘\n";
-            std::cout << "â•‘ 5. å¤–äº¤è¡ŒåŠ¨                        â•‘\n";
-            std::cout << "â•‘ 6. è°æŠ¥æ´»åŠ¨                        â•‘\n";
-            std::cout << "â•‘ 7. å»ºé€ é˜²å¾¡å·¥äº‹                    â•‘\n";
-            std::cout << "â•‘ 8. æ¨è¿›æ”¹é©                        â•‘\n";
-            std::cout << "â•‘ 9. è¿›æ”»æ•Œæ–¹çœä»½                    â•‘\n";
-            std::cout << "â•‘ 10. ä¿å­˜æ¸¸æˆ                       â•‘\n";
-            std::cout << "â•‘ 11. é•‡å‹èµ·ä¹‰  [æ–°]                 â•‘\n";
-            std::cout << "â•‘ 12. ç»“æŸå›åˆ                       â•‘\n";
-            std::cout << "â•‘ 0. é€€å‡ºæ¸¸æˆ                        â•‘\n";
-            std::cout << "â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\n";
+            std::cout << "\n¨X¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨[\n";
+            std::cout << "¨U        ÇëÑ¡ÔñĞĞ¶¯:                 ¨U\n";
+            std::cout << "¨d¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨g\n";
+            std::cout << "¨U 1. ÅÉÇ²×¤¾ü                        ¨U\n";
+            std::cout << "¨U 2. ÕĞÄ¼Ê¿±ø                        ¨U\n";
+            std::cout << "¨U 3. ÑĞ¾¿¿Æ¼¼                        ¨U\n";
+            std::cout << "¨U 4. ÕĞÄ¼½«Áì                        ¨U\n";
+            std::cout << "¨U 5. Íâ½»ĞĞ¶¯                        ¨U\n";
+            std::cout << "¨U 6. µı±¨»î¶¯                        ¨U\n";
+            std::cout << "¨U 7. ½¨Ôì·ÀÓù¹¤ÊÂ                    ¨U\n";
+            std::cout << "¨U 8. ÍÆ½ø¸Ä¸ï                        ¨U\n";
+            std::cout << "¨U 9. ½ø¹¥µĞ·½Ê¡·İ                    ¨U\n";
+            std::cout << "¨U 10. ±£´æÓÎÏ·                       ¨U\n";
+            std::cout << "¨U 11. ÕòÑ¹ÆğÒå  [ĞÂ]                 ¨U\n";
+            std::cout << "¨U 12. ½áÊø»ØºÏ                       ¨U\n";
+            std::cout << "¨U 0. ÍË³öÓÎÏ·                        ¨U\n";
+            std::cout << "¨^¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨a\n";
             
-            // æ˜¾ç¤ºå½“å‰èµ·ä¹‰ä¿¡æ¯
+            // ÏÔÊ¾µ±Ç°ÆğÒåĞÅÏ¢
             if (!uprisingProvinces.empty()) {
-                std::cout << "\nâš  å½“å‰æœ‰ " << uprisingProvinces.size() << " ä¸ªçœä»½å‘ç”Ÿèµ·ä¹‰ï¼\n";
+                std::cout << "\n µ±Ç°ÓĞ " << uprisingProvinces.size() << " ¸öÊ¡·İ·¢ÉúÆğÒå£¡\n";
             }
             
-            std::cout << "é€‰æ‹©: ";
+            std::cout << "Ñ¡Ôñ: ";
             
             int choice;
             std::cin >> choice;
@@ -1232,16 +1232,16 @@ void Game::run() {
             if (std::cin.fail()) {
                 std::cin.clear();
                 std::cin.ignore(10000, '\n');
-                std::cout << "æ— æ•ˆè¾“å…¥ï¼\n";
+                std::cout << "ÎŞĞ§ÊäÈë£¡\n";
                 continue;
             }
             
             if (choice == 0) {
-                std::cout << "ç¡®è®¤é€€å‡º? (1=æ˜¯, 0=å¦): ";
+                std::cout << "È·ÈÏÍË³ö? (1=ÊÇ, 0=·ñ): ";
                 int confirm;
                 std::cin >> confirm;
                 if (confirm == 1) {
-                    std::cout << "æ­£åœ¨ä¿å­˜æ¸¸æˆå¹¶é€€å‡º...\n";
+                    std::cout << "ÕıÔÚ±£´æÓÎÏ·²¢ÍË³ö...\n";
                     gameEnded = true;  // Mark game as ended
                     saveGame(currentSaveFile);
                     displayFinalReport();
@@ -1249,31 +1249,31 @@ void Game::run() {
                 }
                 break;
             } else if (choice == 1) {
-                std::cout << "\nè¯·è¾“å…¥çœä»½ç¼–å· (0-" << provinces.size() - 1 << "): ";
+                std::cout << "\nÇëÊäÈëÊ¡·İ±àºÅ (0-" << provinces.size() - 1 << "): ";
                 int provinceIndex;
                 std::cin >> provinceIndex;
                 
                 if (std::cin.fail()) {
                     std::cin.clear();
                     std::cin.ignore(10000, '\n');
-                    std::cout << "æ— æ•ˆè¾“å…¥ï¼\n";
+                    std::cout << "ÎŞĞ§ÊäÈë£¡\n";
                     continue;
                 }
                 
-                std::cout << "è¯·è¾“å…¥å¢æ´¾å£«å…µæ•°é‡: ";
+                std::cout << "ÇëÊäÈëÔöÅÉÊ¿±øÊıÁ¿: ";
                 int troops;
                 std::cin >> troops;
                 
                 if (std::cin.fail()) {
                     std::cin.clear();
                     std::cin.ignore(10000, '\n');
-                    std::cout << "æ— æ•ˆè¾“å…¥ï¼\n";
+                    std::cout << "ÎŞĞ§ÊäÈë£¡\n";
                     continue;
                 }
                 
                 stationTroops(provinceIndex, troops);
             } else if (choice == 2) {
-                std::cout << "è¯·è¾“å…¥æ‹›å‹Ÿæ•°é‡: ";
+                std::cout << "ÇëÊäÈëÕĞÄ¼ÊıÁ¿: ";
                 int amount;
                 std::cin >> amount;
                 recruitTroops(amount);
@@ -1286,7 +1286,7 @@ void Game::run() {
             } else if (choice == 6) {
                 conductEspionage();
             } else if (choice == 7) {
-                std::cout << "\nè¯·è¾“å…¥çœä»½ç¼–å· (0-" << provinces.size() - 1 << "): ";
+                std::cout << "\nÇëÊäÈëÊ¡·İ±àºÅ (0-" << provinces.size() - 1 << "): ";
                 int provinceIndex;
                 std::cin >> provinceIndex;
                 buildFortification(provinceIndex);
@@ -1297,16 +1297,16 @@ void Game::run() {
             } else if (choice == 10) {
                 saveGame(currentSaveFile);
             } else if (choice == 11) {
-                // é•‡å‹èµ·ä¹‰
+                // ÕòÑ¹ÆğÒå
                 if (uprisingProvinces.empty()) {
-                    std::cout << "å½“å‰æ²¡æœ‰èµ·ä¹‰éœ€è¦é•‡å‹ï¼\n";
+                    std::cout << "µ±Ç°Ã»ÓĞÆğÒåĞèÒªÕòÑ¹£¡\n";
                 } else {
-                    std::cout << "\nå‘ç”Ÿèµ·ä¹‰çš„çœä»½ï¼š\n";
+                    std::cout << "\n·¢ÉúÆğÒåµÄÊ¡·İ£º\n";
                     for (size_t i = 0; i < uprisingProvinces.size(); i++) {
                         int idx = uprisingProvinces[i];
                         std::cout << idx << ". " << provinces[idx]->getName() << "\n";
                     }
-                    std::cout << "\nè¯·è¾“å…¥è¦é•‡å‹çš„çœä»½ç¼–å· (-1å–æ¶ˆ): ";
+                    std::cout << "\nÇëÊäÈëÒªÕòÑ¹µÄÊ¡·İ±àºÅ (-1È¡Ïû): ";
                     int provinceIndex;
                     std::cin >> provinceIndex;
                     if (provinceIndex != -1) {
@@ -1315,10 +1315,10 @@ void Game::run() {
                 }
             } else if (choice == 12) {
                 // End turn
-                std::cout << "å›åˆç»“æŸ...\n";
+                std::cout << "»ØºÏ½áÊø...\n";
                 endTurn = true;
             } else {
-                std::cout << "æ— æ•ˆé€‰æ‹©ï¼\n";
+                std::cout << "ÎŞĞ§Ñ¡Ôñ£¡\n";
                 continue;
             }
         }
